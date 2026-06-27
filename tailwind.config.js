@@ -21,10 +21,13 @@ module.exports = {
         sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
       },
       boxShadow: {
-        brand: '0 4px 24px rgba(249,115,22,0.22)',
-        'brand-lg': '0 8px 40px rgba(249,115,22,0.18)',
-        card: '0 2px 16px rgba(0,0,0,0.4)',
-        'card-lg': '0 8px 48px rgba(0,0,0,0.6)',
+        brand:    '0 4px 24px rgba(249,115,22,0.25)',
+        'brand-lg': '0 8px 40px rgba(249,115,22,0.20)',
+        card:     '0 2px 20px rgba(0,0,0,0.45)',
+        'card-lg':'0 12px 56px rgba(0,0,0,0.65)',
+      },
+      animation: {
+        'float-slow': 'float-slow 11s ease-in-out infinite',
       },
       borderColor: {
         DEFAULT: '#1a2a45',
