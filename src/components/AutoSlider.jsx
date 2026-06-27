@@ -1,144 +1,143 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 
-export default function AutoSlider({ slides, currentSlide: externalSlide, onSlideChange }) {
-  const [internalSlide, setInternalSlide] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
-  const sliderRef = useRef(null);
-  const currentSlide = externalSlide !== undefined ? externalSlide : internalSlide;
+export default function AutoSlider({ slides, currentSlide: controlled, onSlideChange }) {
+  const [internal, setInternal] = useState(0);
+  const [animating, setAnimating] = useState(false);
+  const [paused, setPaused] = useState(false);
+  const timerRef = useRef(null);
 
-  const nextSlide = useCallback(() => {
-    if (isAnimating) return;
-    setIsAnimating(true);
-    const next = (currentSlide + 1) % slides.length;
-    setInternalSlide(next);
-    if (onSlideChange) onSlideChange(next);
-    setTimeout(() => setIsAnimating(false), 500);
-  }, [slides.length, isAnimating, currentSlide, onSlideChange]);
+  const current = controlled !== undefined ? controlled : internal;
 
-  const prevSlide = useCallback(() => {
-    if (isAnimating) return;
-    setIsAnimating(true);
-    const prev = (currentSlide - 1 + slides.length) % slides.length;
-    setInternalSlide(prev);
-    if (onSlideChange) onSlideChange(prev);
-    setTimeout(() => setIsAnimating(false), 500);
-  }, [slides.length, isAnimating, currentSlide, onSlideChange]);
+  const goTo = useCallback((index) => {
+    if (animating || index === current) return;
+    setAnimating(true);
+    setInternal(index);
+    onSlideChange?.(index);
+    setTimeout(() => setAnimating(false), 550);
+  }, [animating, current, onSlideChange]);
 
-  const goToSlide = useCallback((index) => {
-    if (isAnimating || index === currentSlide) return;
-    setIsAnimating(true);
-    setInternalSlide(index);
-    if (onSlideChange) onSlideChange(index);
-    setTimeout(() => setIsAnimating(false), 500);
-  }, [currentSlide, isAnimating, onSlideChange]);
+  const next = useCallback(() => goTo((current + 1) % slides.length), [current, slides.length, goTo]);
+  const prev = useCallback(() => goTo((current - 1 + slides.length) % slides.length), [current, slides.length, goTo]);
 
-  // Keyboard navigation
+  // Auto-advance
   useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === 'ArrowLeft') prevSlide();
-      if (e.key === 'ArrowRight') nextSlide();
+    if (paused) return;
+    timerRef.current = setInterval(next, 6000);
+    return () => clearInterval(timerRef.current);
+  }, [next, paused]);
+
+  // Keyboard
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === 'ArrowLeft')  prev();
+      if (e.key === 'ArrowRight') next();
     };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [nextSlide, prevSlide]);
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [next, prev]);
 
-  // Auto slide
-  useEffect(() => {
-    const timer = setInterval(nextSlide, 6000);
-    return () => clearInterval(timer);
-  }, [nextSlide]);
-
-  // Touch/swipe support
-  const [touchStart, setTouchStart] = useState(0);
-  const [touchEnd, setTouchEnd] = useState(0);
-
-  const handleTouchStart = (e) => {
-    setTouchStart(e.targetTouches[0].clientX);
-  };
-
-  const handleTouchMove = (e) => {
-    setTouchEnd(e.targetTouches[0].clientX);
-  };
-
-  const handleTouchEnd = () => {
-    const diff = touchStart - touchEnd;
-    if (diff > 50) nextSlide();
-    if (diff < -50) prevSlide();
+  // Touch swipe
+  const touchX = useRef(null);
+  const onTouchStart = (e) => { touchX.current = e.targetTouches[0].clientX; };
+  const onTouchEnd   = (e) => {
+    if (touchX.current === null) return;
+    const diff = touchX.current - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 44) diff > 0 ? next() : prev();
+    touchX.current = null;
   };
 
   return (
-    <div 
-      className="relative w-full min-h-screen bg-black overflow-hidden" 
-      ref={sliderRef}
-      onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
-      onTouchEnd={handleTouchEnd}
+    <div
+      className="relative w-full bg-navy-950 overflow-hidden"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
     >
-      {/* Slides Container */}
-      <div className="relative w-full h-screen">
+      {/* Slides */}
+      <div className="relative w-full h-[65vh] min-h-[440px] max-h-[680px]">
         <div
-          className="flex h-full transition-transform duration-500 ease-out"
-          style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+          className="flex h-full"
+          style={{
+            transform: `translateX(-${current * 100}%)`,
+            transition: 'transform 550ms cubic-bezier(0.77, 0, 0.175, 1)',
+          }}
         >
-          {slides.map((slide, index) => (
-            <div key={index} className="w-full h-full flex-shrink-0">
+          {slides.map((slide, i) => (
+            <div key={i} className="w-full h-full flex-shrink-0">
               {slide.content}
             </div>
           ))}
         </div>
+
+        {/* Slide counter — top right */}
+        <div className="absolute top-5 right-5 z-20 flex items-center gap-1.5 text-[11px] font-mono text-[var(--text-subtle)] select-none">
+          <span className="text-white font-semibold">{String(current + 1).padStart(2, '0')}</span>
+          <span>/</span>
+          <span>{String(slides.length).padStart(2, '0')}</span>
+        </div>
+
+        {/* Arrow buttons */}
+        <button
+          onClick={prev}
+          disabled={animating}
+          aria-label="Previous slide"
+          className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full border border-[var(--border-light)] bg-navy-900/80 backdrop-blur-sm text-[var(--text-muted)] hover:text-white hover:border-brand/50 transition-colors duration-200 flex items-center justify-center disabled:opacity-30"
+        >
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+        <button
+          onClick={next}
+          disabled={animating}
+          aria-label="Next slide"
+          className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full border border-[var(--border-light)] bg-navy-900/80 backdrop-blur-sm text-[var(--text-muted)] hover:text-white hover:border-brand/50 transition-colors duration-200 flex items-center justify-center disabled:opacity-30"
+        >
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
       </div>
 
-      {/* Navigation Arrows */}
-      <button
-        onClick={prevSlide}
-        disabled={isAnimating}
-        className="absolute left-6 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all hover:scale-110 disabled:opacity-50"
-        aria-label="Previous slide"
-      >
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-        </svg>
-      </button>
-
-      <button
-        onClick={nextSlide}
-        disabled={isAnimating}
-        className="absolute right-6 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all hover:scale-110 disabled:opacity-50"
-        aria-label="Next slide"
-      >
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-        </svg>
-      </button>
-
-      {/* Bottom Navigation Tabs */}
-      <div className="absolute bottom-0 left-0 right-0 z-20 bg-gradient-to-t from-black/80 to-transparent px-6 md:px-10 py-8 md:py-12">
-        <div className="flex items-center gap-4 md:gap-6 overflow-x-auto pb-4">
-          {slides.map((slide, index) => (
+      {/* Tab strip */}
+      <div className="bg-navy-900/95 border-t border-[var(--border)] backdrop-blur-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 flex items-stretch no-scrollbar overflow-x-auto">
+          {slides.map((slide, i) => (
             <button
-              key={index}
-              onClick={() => goToSlide(index)}
-              disabled={isAnimating}
-              className={`flex-shrink-0 text-left transition-all duration-300 ${
-                currentSlide === index
-                  ? 'opacity-100'
-                  : 'opacity-60 hover:opacity-80'
-              } ${isAnimating ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+              key={i}
+              onClick={() => goTo(i)}
+              disabled={animating}
+              className={`relative flex-shrink-0 px-5 sm:px-7 py-4 text-left transition-colors duration-200 ${
+                current === i ? 'text-white' : 'text-[var(--text-subtle)] hover:text-[var(--text-muted)]'
+              }`}
             >
-              <div className="text-xs md:text-sm font-semibold text-white uppercase tracking-wider mb-2">
-                {slide.label || `Slide ${index + 1}`}
-              </div>
-              {currentSlide === index && (
-                <div className="h-1 w-12 bg-gradient-to-r from-orange-400 to-orange-600 rounded-full"></div>
-              )}
+              <span className="text-xs font-semibold uppercase tracking-widest">
+                {slide.label}
+              </span>
+              {/* Progress underline */}
+              <span
+                className={`absolute bottom-0 inset-x-0 h-[2px] ${current === i ? 'bg-brand' : 'bg-transparent'}`}
+              >
+                {current === i && (
+                  <span
+                    key={`${current}-${paused}`}
+                    className="block h-full bg-brand animate-progress-fill"
+                    style={{
+                      animationDuration: '6000ms',
+                      animationPlayState: paused ? 'paused' : 'running',
+                    }}
+                  />
+                )}
+              </span>
             </button>
           ))}
-        </div>
-      </div>
 
-      {/* Keyboard hint */}
-      <div className="absolute bottom-4 right-6 text-xs text-white/50 hidden md:block">
-        ← → to navigate
+          {/* Keyboard hint — right-aligned */}
+          <div className="ml-auto hidden md:flex items-center pr-2 text-[11px] text-[var(--text-subtle)] select-none">
+            ← → navigate
+          </div>
+        </div>
       </div>
     </div>
   );
