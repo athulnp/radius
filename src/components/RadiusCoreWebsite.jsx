@@ -46,10 +46,11 @@ function Logo({ contentHeight = 36 }) {
    Data
 ───────────────────────────────────────────── */
 const NAV_LINKS = [
-  ['Services',  'services'],
-  ['Expertise', 'expertise'],
-  ['About',     'about'],
-  ['Contact',   'contact'],
+  ['Services',    'services'],
+  ['Industries',  'industries'],
+  ['Technologies','technologies'],
+  ['About',       'about'],
+  ['Contact',     'contact'],
 ];
 
 const SERVICES = [
@@ -59,10 +60,54 @@ const SERVICES = [
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18" />
       </svg>
     ),
-    title: 'Protocol Testing',
-    desc: 'Deep packet inspection and conformance testing across SS7, Diameter, SIP, and GTP stacks with full trace analysis.',
-    tags: ['SS7', 'Diameter', 'SIP', 'GTP'],
+    title: 'Telecom Testing',
+    desc: 'Complete validation across telecom technologies.',
+    tags: ['Functional Validation', 'Integration Testing', 'Regression', 'Acceptance Testing'],
     accent: 'from-blue-500/20 to-blue-600/5',
+  },
+  {
+    icon: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />
+      </svg>
+    ),
+    title: '5G Core',
+    desc: 'Validate every component of the 5G ecosystem.',
+    tags: ['AMF', 'SMF', 'UPF', 'NRF', 'UDM', 'UDR', 'AUSF', 'PCF', 'NSSF', 'NEF', 'SBA'],
+    accent: 'from-brand/20 to-brand/5',
+  },
+  {
+    icon: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 7h16M4 12h16M4 17h7" />
+      </svg>
+    ),
+    title: 'Packet Core',
+    desc: 'Complete LTE EPC validation across all core elements.',
+    tags: ['MME', 'SGW', 'PGW', 'HSS', 'PCRF', 'OCS', 'DRA', 'Charging'],
+    accent: 'from-violet-500/20 to-violet-600/5',
+  },
+  {
+    icon: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+      </svg>
+    ),
+    title: 'IMS & Voice',
+    desc: 'Full IMS stack and voice service validation.',
+    tags: ['VoLTE', 'VoWiFi', 'IMS', 'SMS', 'SIP', 'SRVCC', 'Emergency Calling'],
+    accent: 'from-rose-500/20 to-rose-600/5',
+  },
+  {
+    icon: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064" />
+      </svg>
+    ),
+    title: 'Roaming',
+    desc: 'International and inter-PLMN roaming validation.',
+    tags: ['LTE Roaming', 'VoLTE Roaming', '5G Roaming', 'Steering', 'Interworking', 'IR Testing'],
+    accent: 'from-sky-500/20 to-sky-600/5',
   },
   {
     icon: (
@@ -71,43 +116,10 @@ const SERVICES = [
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
       </svg>
     ),
-    title: 'QA Automation',
-    desc: 'End-to-end automation frameworks purpose-built for telecom CI/CD pipelines and continuous regression suites.',
-    tags: ['CI/CD', 'Regression', 'Scripting'],
+    title: 'Automation',
+    desc: 'CI/CD-native frameworks for continuous telecom validation.',
+    tags: ['Python', 'Robot Framework', 'REST APIs', 'Jenkins', 'CI/CD', 'Ansible', 'GitLab'],
     accent: 'from-purple-500/20 to-purple-600/5',
-  },
-  {
-    icon: (
-      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />
-      </svg>
-    ),
-    title: '5G / NR Validation',
-    desc: 'Production-grade 5G NR, NSA/SA architecture validation for RAN, core, and edge deployments at scale.',
-    tags: ['5G NR', 'NSA', 'SA', 'Edge'],
-    accent: 'from-brand/20 to-brand/5',
-  },
-  {
-    icon: (
-      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-      </svg>
-    ),
-    title: 'Network Assurance',
-    desc: 'Continuous monitoring, fault detection, and production-grade network assurance across the full telecom stack.',
-    tags: ['Monitoring', 'Fault Detection', 'SLA'],
-    accent: 'from-emerald-500/20 to-emerald-600/5',
-  },
-  {
-    icon: (
-      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-      </svg>
-    ),
-    title: 'IMS / VoLTE Testing',
-    desc: 'Comprehensive IMS stack validation including VoLTE, VoWiFi, and multimedia telephony session flows.',
-    tags: ['IMS', 'VoLTE', 'VoWiFi', 'RCS'],
-    accent: 'from-rose-500/20 to-rose-600/5',
   },
   {
     icon: (
@@ -115,28 +127,289 @@ const SERVICES = [
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
       </svg>
     ),
-    title: 'Performance Engineering',
-    desc: 'Load testing, capacity planning, and performance benchmarking for telecom infrastructure at any scale.',
-    tags: ['Load Testing', 'Benchmarking', 'Capacity'],
+    title: 'Performance',
+    desc: 'Load, stress and capacity benchmarking at scale.',
+    tags: ['Load Testing', 'Stress Testing', 'Capacity Planning', 'Benchmarking', 'Latency', 'Throughput'],
     accent: 'from-amber-500/20 to-amber-600/5',
+  },
+  {
+    icon: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+      </svg>
+    ),
+    title: 'Consulting',
+    desc: 'Strategic QA, lab design, and release readiness advisory.',
+    tags: ['QA Strategy', 'Lab Design', 'Automation Strategy', 'Vendor Acceptance', 'Release Readiness', 'Advisory'],
+    accent: 'from-emerald-500/20 to-emerald-600/5',
+  },
+  {
+    icon: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
+      </svg>
+    ),
+    title: 'Cloud',
+    desc: 'Cloud-native telecom validation on Kubernetes, AWS, Azure and OpenShift.',
+    tags: ['Docker', 'Kubernetes', 'OpenShift', 'AWS', 'Azure', 'Helm'],
+    accent: 'from-sky-500/20 to-sky-600/5',
   },
 ];
 
 const STATS = [
-  { value: '500+',  label: 'Test Cases',     icon: '🧪' },
-  { value: '50+',   label: 'Operators',       icon: '🌐' },
-  { value: '99.9%', label: 'Detection Rate',  icon: '🎯' },
-  { value: '10+',   label: 'Years Expertise', icon: '⚡' },
+  { value: '12+',   label: 'Years Experience' },
+  { value: '4G',    label: 'LTE / EPC'        },
+  { value: '5G',    label: 'Standalone Core'  },
+  { value: 'IMS',   label: 'VoLTE'            },
+  { value: 'Global',label: 'Delivery'         },
+  { value: 'Auto',  label: 'Automation First' },
 ];
 
-const FEATURES = [
-  { text: 'Packet core & IMS deep protocol expertise',   icon: '○' },
-  { text: 'Automated regression on live network stacks', icon: '○' },
-  { text: 'Zero-defect delivery methodology',           icon: '○' },
-  { text: 'Agile & DevOps-native CI/CD workflows',      icon: '○' },
-  { text: 'Protocol-level trace debug & root analysis',  icon: '○' },
-  { text: 'Full MVNO & greenfield operator support',     icon: '○' },
+const WHY_CARDS = [
+  {
+    title: 'Deep Telecom Expertise',
+    desc: '12+ years of packet core engineering across live operator networks on 4 continents.',
+    icon: <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>,
+    accent: 'border-brand/20 hover:border-brand/40',
+    iconColor: 'text-brand bg-brand/10 border-brand/20',
+  },
+  {
+    title: 'Engineering-led Delivery',
+    desc: 'Not generic QA. Telecom specialists who understand protocols, edge cases, and production stakes.',
+    icon: <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>,
+    accent: 'border-sky-500/20 hover:border-sky-500/40',
+    iconColor: 'text-sky-400 bg-sky-400/10 border-sky-400/20',
+  },
+  {
+    title: 'Global Standards',
+    desc: 'Aligned with GSMA, 3GPP, ETSI, and TM Forum — we validate to the standards that matter.',
+    icon: <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064" /></svg>,
+    accent: 'border-violet-500/20 hover:border-violet-500/40',
+    iconColor: 'text-violet-400 bg-violet-400/10 border-violet-400/20',
+  },
+  {
+    title: 'Automation First',
+    desc: 'Reduce manual effort and increase release velocity with CI/CD-native telecom automation.',
+    icon: <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>,
+    accent: 'border-amber-500/20 hover:border-amber-500/40',
+    iconColor: 'text-amber-400 bg-amber-400/10 border-amber-400/20',
+  },
+  {
+    title: 'Independent Validation',
+    desc: 'Vendor-neutral testing across multiple platforms — objective results your team can trust.',
+    icon: <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>,
+    accent: 'border-emerald-500/20 hover:border-emerald-500/40',
+    iconColor: 'text-emerald-400 bg-emerald-400/10 border-emerald-400/20',
+  },
+  {
+    title: 'Trusted Partnership',
+    desc: 'Transparent, reliable, and engineering-focused — a long-term partner, not a one-off vendor.',
+    icon: <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" /></svg>,
+    accent: 'border-rose-500/20 hover:border-rose-500/40',
+    iconColor: 'text-rose-400 bg-rose-400/10 border-rose-400/20',
+  },
 ];
+
+const DELIVERY_STEPS = [
+  { num: '01', title: 'Discover',           desc: 'Understand network topology, interfaces, and test objectives.'    },
+  { num: '02', title: 'Plan',               desc: 'Define scope, tooling, environments, and success criteria.'       },
+  { num: '03', title: 'Design Test Strategy',desc: 'Architect test cases, automation frameworks, and CI pipelines.' },
+  { num: '04', title: 'Validate',           desc: 'Execute functional, regression, and integration test suites.'     },
+  { num: '05', title: 'Automate',           desc: 'Embed continuous validation into your release pipeline.'          },
+  { num: '06', title: 'Deliver',            desc: 'Report findings, knowledge transfer, and ongoing support.'        },
+];
+
+const INDUSTRIES = [
+  {
+    label: 'Mobile Network Operators',
+    services: ['Core validation', 'Performance testing', 'Test automation', 'Regression & UAT'],
+    accent: 'border-brand/25 hover:border-brand/50',
+    iconColor: 'text-brand bg-brand/10 border-brand/25',
+    glow: 'rgba(249,115,22,0.04)',
+    icon: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />
+      </svg>
+    ),
+  },
+  {
+    label: 'MVNO & MVNE',
+    services: ['Roaming validation', 'IMS & VoLTE testing', 'Charging & OCS', 'Interoperability'],
+    accent: 'border-sky-400/25 hover:border-sky-400/50',
+    iconColor: 'text-sky-400 bg-sky-400/10 border-sky-400/25',
+    glow: 'rgba(56,189,248,0.04)',
+    icon: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+      </svg>
+    ),
+  },
+  {
+    label: 'Enterprises',
+    services: ['Private 5G validation', 'IoT connectivity testing', 'Network assurance', 'Performance benchmarking'],
+    accent: 'border-violet-400/25 hover:border-violet-400/50',
+    iconColor: 'text-violet-400 bg-violet-400/10 border-violet-400/25',
+    glow: 'rgba(167,139,250,0.04)',
+    icon: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+      </svg>
+    ),
+  },
+  {
+    label: 'Cloud Providers',
+    services: ['Cloud-native telecom QA', 'Kubernetes / OpenShift validation', 'CI/CD integration', 'Microservices testing'],
+    accent: 'border-emerald-400/25 hover:border-emerald-400/50',
+    iconColor: 'text-emerald-400 bg-emerald-400/10 border-emerald-400/25',
+    glow: 'rgba(52,211,153,0.04)',
+    icon: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
+      </svg>
+    ),
+  },
+  {
+    label: 'Telecom Vendors',
+    services: ['Product QA & certification', 'Interoperability testing', 'Vendor acceptance testing', 'Protocol conformance'],
+    accent: 'border-amber-400/25 hover:border-amber-400/50',
+    iconColor: 'text-amber-400 bg-amber-400/10 border-amber-400/25',
+    glow: 'rgba(251,191,36,0.04)',
+    icon: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+      </svg>
+    ),
+  },
+  {
+    label: 'Automotive & IoT',
+    services: ['Connectivity testing', 'IoT certification', 'V2X validation', 'Device interoperability'],
+    accent: 'border-rose-400/25 hover:border-rose-400/50',
+    iconColor: 'text-rose-400 bg-rose-400/10 border-rose-400/25',
+    glow: 'rgba(251,113,133,0.04)',
+    icon: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10l2.5-2.5M13 16H9m4 0h3m3 0h.01M16 16V8l-3-3H6" />
+      </svg>
+    ),
+  },
+];
+
+const TECHNOLOGIES = [
+  {
+    label: '4G LTE', group: 'radio',
+    icon: <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" /></svg>,
+  },
+  {
+    label: '5G SA', group: 'radio',
+    icon: <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" /></svg>,
+  },
+  {
+    label: '5G NSA', group: 'radio',
+    icon: <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" /></svg>,
+  },
+  {
+    label: 'IMS', group: 'core',
+    icon: <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>,
+  },
+  {
+    label: 'VoLTE', group: 'core',
+    icon: <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>,
+  },
+  {
+    label: 'VoWiFi', group: 'core',
+    icon: <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01M4.93 10.93a9.5 9.5 0 0114.14 0" /></svg>,
+  },
+  {
+    label: 'Diameter', group: 'protocol',
+    icon: <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>,
+  },
+  {
+    label: 'HTTP/2', group: 'protocol',
+    icon: <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9" /></svg>,
+  },
+  {
+    label: 'SIP', group: 'protocol',
+    icon: <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /></svg>,
+  },
+  {
+    label: 'GTP', group: 'protocol',
+    icon: <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" /></svg>,
+  },
+  {
+    label: 'PFCP', group: 'protocol',
+    icon: <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M4 4h16v16H4V4zm4 4h8m-8 4h8m-8 4h4" /></svg>,
+  },
+  {
+    label: 'REST APIs', group: 'protocol',
+    icon: <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>,
+  },
+  {
+    label: 'Kubernetes', group: 'cloud',
+    icon: <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M5 3l14 9-14 9V3z" /></svg>,
+  },
+  {
+    label: 'Docker', group: 'cloud',
+    icon: <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" /></svg>,
+  },
+  {
+    label: 'OpenShift', group: 'cloud',
+    icon: <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" strokeWidth={1.8} /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M12 8v4l3 3" /></svg>,
+  },
+  {
+    label: 'AWS', group: 'cloud',
+    icon: <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" /></svg>,
+  },
+  {
+    label: 'Azure', group: 'cloud',
+    icon: <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" /></svg>,
+  },
+  {
+    label: 'GitLab', group: 'automation',
+    icon: <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M12 22l4-4H8l4 4zM3.27 9L12 22 20.73 9l-2.19-6.01a.48.48 0 00-.9 0L15.5 9h-7L6.36 2.99a.48.48 0 00-.9 0L3.27 9z" /></svg>,
+  },
+  {
+    label: 'Jenkins', group: 'automation',
+    icon: <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>,
+  },
+  {
+    label: 'Python', group: 'automation',
+    icon: <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>,
+  },
+  {
+    label: 'Robot Framework', group: 'automation',
+    icon: <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18" /></svg>,
+  },
+  {
+    label: 'SCTP', group: 'protocol',
+    icon: <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" /></svg>,
+  },
+  {
+    label: 'Ansible', group: 'automation',
+    icon: <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M4 6h16M4 10h16M4 14h16M4 18h7" /></svg>,
+  },
+  {
+    label: 'Helm', group: 'cloud',
+    icon: <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" /></svg>,
+  },
+  {
+    label: 'Prometheus', group: 'cloud',
+    icon: <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>,
+  },
+  {
+    label: 'Grafana', group: 'cloud',
+    icon: <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>,
+  },
+];
+
+const TECH_GROUP_COLORS = {
+  radio:      'border-brand/30      text-brand      bg-brand/8',
+  core:       'border-sky-400/30    text-sky-400    bg-sky-400/8',
+  protocol:   'border-violet-400/30 text-violet-400 bg-violet-400/8',
+  cloud:      'border-emerald-400/30 text-emerald-400 bg-emerald-400/8',
+  automation: 'border-amber-400/30  text-amber-400  bg-amber-400/8',
+};
 
 const SLIDE_DATA = [
   {
@@ -337,6 +610,103 @@ function HeroVisual() {
 }
 
 /* ─────────────────────────────────────────────
+   Who We Are section
+───────────────────────────────────────────── */
+function WhoWeAreSection() {
+  const ref = useReveal(0.08);
+  return (
+    <section className="py-20 sm:py-24 px-4 sm:px-6 lg:px-10 relative overflow-hidden">
+      <div className="absolute inset-0 bg-navy-900/30 pointer-events-none" />
+      <div className="max-w-5xl mx-auto relative text-center">
+        <div ref={ref} className="reveal">
+          <Tag>Who We Are</Tag>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 leading-tight">
+            We Validate <span className="text-gradient">Mission-Critical</span> Networks.
+          </h2>
+          <p className="text-[var(--text-muted)] text-base sm:text-lg leading-relaxed mb-6 max-w-3xl mx-auto">
+            Every dropped call, failed registration, roaming issue, or network outage impacts millions of users.
+            Our engineers help telecom providers release with confidence by validating complex mobile core networks before deployment.
+          </p>
+          <p className="text-[var(--text-muted)] text-base sm:text-lg leading-relaxed max-w-3xl mx-auto">
+            From EPC to cloud-native 5G Core, Radius Core Labs delivers engineering excellence across every stage of network evolution.
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─────────────────────────────────────────────
+   Why card
+───────────────────────────────────────────── */
+function WhyCard({ card, index }) {
+  const ref = useReveal(0.07);
+  return (
+    <div ref={ref}
+      className={`reveal why-card-hover bg-navy-900 border ${card.accent} rounded-2xl p-7 flex flex-col`}
+      style={{ transitionDelay: `${index * 70}ms` }}>
+      <div className={`w-12 h-12 rounded-xl border flex items-center justify-center mb-5 flex-shrink-0 ${card.iconColor}`}>
+        {card.icon}
+      </div>
+      <h3 className="text-white font-semibold text-base mb-2.5">{card.title}</h3>
+      <p className="text-[var(--text-muted)] text-sm leading-relaxed flex-1">{card.desc}</p>
+    </div>
+  );
+}
+
+/* ─────────────────────────────────────────────
+   Delivery step card
+───────────────────────────────────────────── */
+function DeliveryStepCard({ step, index }) {
+  const ref = useReveal(0.07);
+  return (
+    <div ref={ref}
+      className="reveal card-hover bg-navy-900 border border-[var(--border)] rounded-2xl p-6 flex gap-4"
+      style={{ transitionDelay: `${index * 65}ms` }}>
+      <div className="flex-shrink-0">
+        <span className="text-2xl font-bold text-gradient leading-none">{step.num}</span>
+      </div>
+      <div>
+        <h3 className="text-white font-semibold text-sm mb-1.5">{step.title}</h3>
+        <p className="text-[var(--text-muted)] text-xs leading-relaxed">{step.desc}</p>
+      </div>
+    </div>
+  );
+}
+
+/* ─────────────────────────────────────────────
+   Industry card
+───────────────────────────────────────────── */
+function IndustryCard({ ind, index }) {
+  const ref = useReveal(0.07);
+  return (
+    <div ref={ref}
+      className={`reveal group relative bg-navy-900 border ${ind.accent} rounded-2xl p-6 flex flex-col overflow-hidden transition-all duration-300`}
+      style={{ transitionDelay: `${index * 65}ms` }}>
+      <div className="absolute inset-0 rounded-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        style={{ background: `radial-gradient(ellipse 80% 60% at 10% 0%, ${ind.glow}, transparent)` }} />
+      <div className="flex items-center gap-3 mb-5">
+        <div className={`w-11 h-11 rounded-xl border flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover:scale-110 ${ind.iconColor}`}>
+          {ind.icon}
+        </div>
+        <h3 className="text-white font-semibold text-sm leading-snug">{ind.label}</h3>
+      </div>
+      <div className="h-px bg-[var(--border)] mb-4" />
+      <ul className="flex flex-col gap-2 flex-1">
+        {ind.services.map(svc => (
+          <li key={svc} className="flex items-center gap-2.5">
+            <svg className="w-3.5 h-3.5 flex-shrink-0 opacity-70" viewBox="0 0 20 20" fill="currentColor">
+              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+            </svg>
+            <span className="text-[var(--text-muted)] text-xs font-medium leading-snug group-hover:text-slate-300 transition-colors duration-200">{svc}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+/* ─────────────────────────────────────────────
    Service card
 ───────────────────────────────────────────── */
 function ServiceCard({ service, index, delay = 0 }) {
@@ -344,35 +714,28 @@ function ServiceCard({ service, index, delay = 0 }) {
   return (
     <article ref={ref} className="reveal card-hover group relative bg-navy-900 border border-[var(--border)] rounded-2xl p-6 flex flex-col overflow-hidden"
       style={{ transitionDelay: `${delay}ms` }}>
-      {/* Subtle accent gradient top-right */}
-      <div className={`absolute top-0 right-0 w-24 h-24 bg-gradient-to-br ${service.accent} rounded-bl-full opacity-60 pointer-events-none`} />
-
-      {/* Index */}
+      <div className={`absolute top-0 right-0 w-28 h-28 bg-gradient-to-br ${service.accent} rounded-bl-full opacity-50 pointer-events-none`} />
       <span className="absolute top-5 right-5 text-[11px] font-mono text-[var(--text-subtle)] select-none">
         {String(index + 1).padStart(2, '0')}
       </span>
 
-      {/* Icon */}
       <div className="w-11 h-11 rounded-xl bg-navy-800 border border-[var(--border-light)] flex items-center justify-center text-brand mb-5 group-hover:border-brand/40 group-hover:bg-navy-700 transition-all duration-200 flex-shrink-0">
         {service.icon}
       </div>
 
-      <h3 className="text-white font-semibold text-base mb-2">{service.title}</h3>
-      <p className="text-[var(--text-muted)] text-sm leading-relaxed mb-4 flex-1">{service.desc}</p>
+      <h3 className="text-white font-semibold text-base mb-1.5">{service.title}</h3>
+      <p className="text-[var(--text-muted)] text-xs leading-relaxed mb-4">{service.desc}</p>
 
-      <div className="flex flex-wrap gap-1.5 mt-auto">
+      <ul className={service.tags.length > 6 ? 'grid grid-cols-2 gap-x-3 gap-y-1.5' : 'flex flex-col gap-1.5'}>
         {service.tags.map(tag => (
-          <span key={tag}
-            className="text-[10px] px-2.5 py-1 rounded-full bg-navy-800 border border-[var(--border-light)] text-[var(--text-muted)] font-medium tracking-wide">
-            {tag}
-          </span>
+          <li key={tag} className="flex items-center gap-2">
+            <svg className="w-3 h-3 text-brand flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+            </svg>
+            <span className="text-[11px] text-[var(--text-muted)] font-medium">{tag}</span>
+          </li>
         ))}
-      </div>
-
-      {/* Hover arrow */}
-      <div className="absolute bottom-5 right-5 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-        <ArrowRight className="w-3.5 h-3.5 text-brand" />
-      </div>
+      </ul>
     </article>
   );
 }
@@ -390,7 +753,7 @@ export default function RadiusCoreWebsite() {
     const onScroll = () => {
       setScrolled(window.scrollY > 40);
       // Highlight active section in nav
-      const sections = ['services', 'expertise', 'about', 'contact'];
+      const sections = ['services', 'industries', 'technologies', 'expertise', 'rclabs', 'about', 'contact'];
       for (const id of sections.reverse()) {
         const el = document.getElementById(id);
         if (el && window.scrollY >= el.offsetTop - 120) { setActiveNav(id); return; }
@@ -633,7 +996,7 @@ export default function RadiusCoreWebsite() {
         </div>
 
         {/* Mobile drawer */}
-        <div className={`md:hidden overflow-hidden transition-all duration-300 ${menuOpen ? 'max-h-80 opacity-100' : 'max-h-0 opacity-0'}`}>
+        <div className={`md:hidden overflow-hidden transition-all duration-300 ${menuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
           <div className="bg-navy-900/98 backdrop-blur-xl border-b border-[var(--border)] px-4 pb-5 pt-2">
             <nav className="flex flex-col gap-1">
               {NAV_LINKS.map(([label, id]) => (
@@ -690,9 +1053,10 @@ export default function RadiusCoreWebsite() {
             </h1>
 
             <p className="text-[var(--text-muted)] text-base sm:text-lg leading-relaxed mb-10 max-w-lg">
-              Radius Core delivers telecom-native testing, packet core validation,
-              and production-grade network assurance for modern operators, MVNOs,
-              and digital telecom ecosystems.
+              Radius Core Labs is a specialized telecom engineering company helping operators,
+               MVNOs, vendors, and enterprises deliver reliable 4G, 5G, IMS, 
+               and cloud-native networks through expert validation, automation,
+                and quality engineering.
             </p>
 
             <div className="flex flex-wrap gap-3 mb-10">
@@ -723,17 +1087,26 @@ export default function RadiusCoreWebsite() {
 
         {/* Stats bar */}
         <div ref={statsRef} className="reveal relative z-10 border-t border-[var(--border)] glass">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 grid grid-cols-2 sm:grid-cols-4">
-            {STATS.map((stat, i) => (
-              <div key={stat.label}
-                className={`text-center py-5 px-3 ${i < 3 ? 'sm:border-r' : ''} border-[var(--border)] ${i === 1 ? 'border-r' : ''} ${i < 2 ? 'border-b sm:border-b-0' : ''} border-[var(--border)]`}>
-                <p className="text-2xl sm:text-3xl font-bold text-gradient leading-none">{stat.value}</p>
-                <p className="text-[var(--text-muted)] text-xs font-medium mt-1.5">{stat.label}</p>
-              </div>
-            ))}
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 grid grid-cols-3 sm:grid-cols-6">
+            {STATS.map((stat, i) => {
+              // Mobile (3-col): border-r unless last in row (i%3===2)
+              // SM+ (6-col): border-r unless last item (i===5)
+              const mobileRight = i % 3 !== 2 ? 'border-r' : '';
+              const smRight = i < 5 ? 'sm:border-r' : 'sm:border-r-0';
+              return (
+                <div key={stat.label}
+                  className={`text-center py-5 px-3 border-[var(--border)] ${mobileRight} ${smRight} ${i < 3 ? 'border-b sm:border-b-0' : ''}`}>
+                  <p className="text-xl sm:text-2xl font-bold text-gradient leading-none">{stat.value}</p>
+                  <p className="text-[var(--text-muted)] text-[10px] sm:text-xs font-medium mt-1.5 leading-tight">{stat.label}</p>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
+
+      {/* ══════════════════════════ WHO WE ARE ══════════════════════════ */}
+      <WhoWeAreSection />
 
       {/* ══════════════════════════ SERVICES ══════════════════════════ */}
       <section id="services" className="py-24 sm:py-28 lg:py-32 px-4 sm:px-6 lg:px-10">
@@ -741,11 +1114,11 @@ export default function RadiusCoreWebsite() {
           <SectionLabel
             tag="What We Do"
             title={<>End-to-End <span className="text-gradient">Telecom</span> Testing</>}
-            desc="From protocol conformance to 5G NR validation, we cover every layer of your network stack with precision and depth."
+            desc="From 5G Core validation to roaming compliance, IMS testing to test automation — comprehensive coverage across every layer of your network."
           />
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-6">
             {SERVICES.map((svc, i) => (
-              <ServiceCard key={svc.title} service={svc} index={i} delay={i * 60} />
+              <ServiceCard key={svc.title} service={svc} index={i} delay={i * 50} />
             ))}
           </div>
         </div>
@@ -756,65 +1129,123 @@ export default function RadiusCoreWebsite() {
         <AutoSlider slides={slides} currentSlide={slide} onSlideChange={setSlide} />
       </section>
 
-      {/* ══════════════════════════ EXPERTISE ══════════════════════════ */}
+      {/* ══════════════════════════ WHY RADIUS CORE ══════════════════════════ */}
       <section id="expertise" className="py-24 sm:py-28 lg:py-32 px-4 sm:px-6 lg:px-10 relative overflow-hidden">
-        {/* Section background tint */}
         <div className="absolute inset-0 bg-navy-900/25 pointer-events-none" />
-        <div className="absolute top-0 right-0 w-80 h-80 bg-brand/3 rounded-full blur-[100px] pointer-events-none" />
-
-        <div ref={expertiseRef} className="reveal relative max-w-7xl mx-auto grid lg:grid-cols-2 gap-14 lg:gap-24 items-center">
-          {/* Left */}
-          <div>
-            <Tag>Why Radius Core</Tag>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-6">
-              Telecom-Native <span className="text-gradient">Expertise</span><br />You Can Trust
-            </h2>
-            <p className="text-[var(--text-muted)] text-base sm:text-lg leading-relaxed mb-10 max-w-lg">
-              Unlike generic QA firms, we are built from the ground up for telecom.
-              Our engineers understand the protocols, the edge cases, and the stakes
-              of production networks.
-            </p>
-
-            <ul className="space-y-3.5 mb-10">
-              {FEATURES.map((feat, i) => (
-                <li key={feat.text}
-                  className="flex items-start gap-3.5 text-slate-300 text-sm sm:text-base"
-                  style={{ animation: `fade-up-in 0.4s ease ${0.1 + i * 0.07}s both` }}>
-                  <span className="w-5 h-5 rounded-full bg-brand/15 border border-brand/30 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <svg className="w-3 h-3 text-brand" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                  </span>
-                  {feat.text}
-                </li>
-              ))}
-            </ul>
-
-            <PrimaryBtn onClick={() => scrollTo('contact')} size="lg">
-              Work With Us <ArrowRight />
-            </PrimaryBtn>
+        <div className="absolute top-0 right-0 w-96 h-96 bg-brand/3 rounded-full blur-[120px] pointer-events-none" />
+        <div className="max-w-7xl mx-auto relative">
+          <SectionLabel
+            tag="Why Radius Core"
+            title={<>Six Reasons Engineers <span className="text-gradient">Choose Us</span></>}
+            desc="Unlike generic software QA firms, telecom engineering is our core expertise — built from the ground up for the protocols, the edge cases, and the stakes of production networks."
+          />
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6 mb-16">
+            {WHY_CARDS.map((card, i) => (
+              <WhyCard key={card.title} card={card} index={i} />
+            ))}
           </div>
 
-          {/* Right — metric cards 2×2 */}
-          <div className="grid grid-cols-2 gap-3 sm:gap-4">
+          {/* Metrics strip */}
+          <div ref={expertiseRef} className="reveal grid grid-cols-2 sm:grid-cols-4 gap-4">
             {[
-              { label: 'Protocol Layers', value: '15+',   desc: 'Deep stack coverage',    color: 'text-brand',      border: 'hover:border-brand/30'     },
-              { label: 'Automation Rate', value: '95%',   desc: 'Of regression suites',   color: 'text-sky-400',    border: 'hover:border-sky-400/30'   },
-              { label: 'Time to Deploy',  value: '2×',    desc: 'Faster than average',    color: 'text-violet-400', border: 'hover:border-violet-400/30'},
-              { label: 'Network Uptime',  value: '99.9%', desc: 'Post-validation SLA',    color: 'text-emerald-400',border: 'hover:border-emerald-400/30'},
-            ].map((item, i) => {
-              const ref = useReveal();
+              { label: 'Years Experience', value: '12+',   color: 'text-brand'       },
+              { label: 'Operators Served', value: '50+',   color: 'text-sky-400'     },
+              { label: 'Faster Releases',  value: '2×',    color: 'text-violet-400'  },
+              { label: 'Detection Rate',   value: '99.9%', color: 'text-emerald-400' },
+            ].map((item, i) => (
+              <div key={item.label}
+                className="bg-navy-900/60 border border-[var(--border)] rounded-2xl p-5 text-center"
+                style={{ transitionDelay: `${i * 80}ms` }}>
+                <p className={`text-3xl sm:text-4xl font-bold ${item.color} leading-none mb-1`}>{item.value}</p>
+                <p className="text-[var(--text-muted)] text-xs font-medium">{item.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════ DELIVERY PROCESS ══════════════════════════ */}
+      <section id="process" className="py-24 sm:py-28 lg:py-32 px-4 sm:px-6 lg:px-10 relative overflow-hidden">
+        <div className="absolute inset-0 bg-navy-900/50 pointer-events-none" />
+        <div className="max-w-7xl mx-auto relative">
+          <SectionLabel
+            tag="How We Work"
+            title={<>Our <span className="text-gradient">Delivery</span> Process</>}
+            desc="A structured, engineering-first approach that moves from discovery to continuous validation."
+          />
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-6">
+            {DELIVERY_STEPS.map((step, i) => (
+              <DeliveryStepCard key={step.num} step={step} index={i} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════ INDUSTRIES ══════════════════════════ */}
+      <section id="industries" className="py-24 sm:py-28 lg:py-32 px-4 sm:px-6 lg:px-10 relative overflow-hidden">
+        <div className="absolute inset-0 bg-navy-900/40 pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-80 h-80 bg-sky-500/3 rounded-full blur-[100px] pointer-events-none" />
+        <div className="max-w-7xl mx-auto relative">
+          <SectionLabel
+            tag="Industries We Support"
+            title={<>Built for Every <span className="text-gradient">Telecom</span> Vertical</>}
+            desc="From tier-1 operators to private 5G enterprises — Radius Core scales with every segment of the telecom ecosystem."
+          />
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
+            {INDUSTRIES.map((ind, i) => (
+              <IndustryCard key={ind.label} ind={ind} index={i} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════ TECHNOLOGIES ══════════════════════════ */}
+      <section id="technologies" className="py-24 sm:py-28 lg:py-32 px-4 sm:px-6 lg:px-10">
+        <div className="max-w-7xl mx-auto">
+          <SectionLabel
+            tag="Technology Stack"
+            title={<>Full <span className="text-gradient">Technology</span> Coverage</>}
+            desc="Deep hands-on expertise across radio, core, protocols, cloud infrastructure, and automation tooling."
+          />
+
+          {/* Legend */}
+          <div className="flex flex-wrap justify-center gap-3 mb-10">
+            {[
+              { key: 'radio',      label: 'Radio & Access'   },
+              { key: 'core',       label: 'Core & IMS'       },
+              { key: 'protocol',   label: 'Protocols & APIs' },
+              { key: 'cloud',      label: 'Cloud & Infra'    },
+              { key: 'automation', label: 'Automation'       },
+            ].map(({ key, label }) => (
+              <span key={key}
+                className={`text-xs font-semibold px-3 py-1.5 rounded-full border ${TECH_GROUP_COLORS[key]}`}>
+                {label}
+              </span>
+            ))}
+          </div>
+
+          <div className="flex flex-wrap justify-center gap-2.5 sm:gap-3">
+            {TECHNOLOGIES.map((tech, i) => {
+              const ref = useReveal(0.05);
               return (
-                <div key={item.label} ref={ref}
-                  className={`reveal card-hover bg-navy-900 border border-[var(--border)] rounded-2xl p-5 sm:p-6 ${item.border}`}
-                  style={{ transitionDelay: `${180 + i * 90}ms` }}>
-                  <p className={`text-3xl sm:text-4xl font-bold ${item.color} mb-1.5 leading-none`}>{item.value}</p>
-                  <p className="text-white text-sm font-semibold mb-1">{item.label}</p>
-                  <p className="text-[var(--text-muted)] text-xs leading-relaxed">{item.desc}</p>
-                </div>
+                <span key={tech.label} ref={ref}
+                  className={`reveal inline-flex items-center gap-2 px-4 py-2 rounded-xl border text-sm font-medium transition-all duration-200 hover:scale-105 cursor-default ${TECH_GROUP_COLORS[tech.group]}`}
+                  style={{ transitionDelay: `${i * 30}ms` }}>
+                  {tech.icon}
+                  {tech.label}
+                </span>
               );
             })}
           </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════ RC LABS ══════════════════════════ */}
+      <section id="rclabs" className="py-24 sm:py-28 lg:py-32 px-4 sm:px-6 lg:px-10 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-navy-950 via-navy-900/60 to-navy-950 pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-brand/4 rounded-full blur-[120px] pointer-events-none" />
+        <div className="max-w-4xl mx-auto relative">
+          <RCLabsBanner scrollTo={scrollTo} />
         </div>
       </section>
 
@@ -910,7 +1341,7 @@ export default function RadiusCoreWebsite() {
             <div>
               <h5 className="text-white text-xs font-semibold uppercase tracking-widest mb-5">Services</h5>
               <ul className="space-y-2.5">
-                {['Protocol Testing', 'QA Automation', '5G / NR Validation', 'Network Assurance', 'IMS / VoLTE'].map(s => (
+                {['Telecom Testing', '5G Core Validation', 'EPC Testing', 'IMS & VoLTE', 'Test Automation', 'Performance Testing', 'Consulting'].map(s => (
                   <li key={s}>
                     <button onClick={() => scrollTo('services')}
                       className="text-[var(--text-muted)] hover:text-brand transition-colors text-sm">
@@ -1091,6 +1522,70 @@ function ContactSection({ scrollTo }) {
             </GhostBtn>
           </div>
         </div>
+      </div>
+    </div>
+  );
+}
+
+/* ─────────────────────────────────────────────
+   RC Labs banner
+───────────────────────────────────────────── */
+function RCLabsBanner({ scrollTo }) {
+  const ref = useReveal();
+  return (
+    <div ref={ref} className="reveal relative overflow-hidden rounded-3xl border border-[var(--border)] bg-gradient-to-br from-navy-900 via-navy-900 to-navy-800">
+      {/* Decorative */}
+      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-brand/40 to-transparent" />
+      <div className="absolute top-0 left-0 w-60 h-60 bg-brand/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-80 h-40 bg-violet-500/4 rounded-full blur-3xl pointer-events-none" />
+
+      <div className="relative z-10 px-8 sm:px-12 lg:px-16 py-12 sm:py-16">
+        {/* Header */}
+        <div className="text-center mb-10">
+          <div className="inline-flex items-center gap-2.5 glass border border-[var(--border)] rounded-full px-4 py-2 text-xs font-medium mb-6">
+            <span className="w-1.5 h-1.5 rounded-full bg-brand animate-pulse" />
+            <span className="text-brand font-semibold">Innovation Lab</span>
+            <span className="w-px h-3 bg-[var(--border)]" />
+            <span className="text-[var(--text-muted)]">Coming Soon</span>
+          </div>
+          <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4 leading-tight">
+            Future Products — <span className="text-gradient">RC Labs</span>
+          </h3>
+          <p className="text-[var(--text-muted)] text-base sm:text-lg leading-relaxed max-w-2xl mx-auto">
+            Radius Core Labs is investing in next-generation telecom engineering products.
+            This tells our clients we're building intellectual property, not just selling services.
+          </p>
+        </div>
+
+        {/* Product grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 mb-10">
+          {[
+            { label: 'AI Test Assistant',              icon: <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>, color: 'border-brand/25 bg-brand/5 text-brand' },
+            { label: 'Roaming Analytics',               icon: <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064" /></svg>, color: 'border-sky-400/25 bg-sky-400/5 text-sky-400' },
+            { label: 'Network Health Dashboard',        icon: <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>, color: 'border-violet-400/25 bg-violet-400/5 text-violet-400' },
+            { label: 'Traffic Simulation Platform',     icon: <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" /></svg>, color: 'border-amber-400/25 bg-amber-400/5 text-amber-400' },
+            { label: 'Automated Test Framework',        icon: <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>, color: 'border-emerald-400/25 bg-emerald-400/5 text-emerald-400' },
+            { label: 'Protocol Intelligence',           icon: <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>, color: 'border-rose-400/25 bg-rose-400/5 text-rose-400' },
+            { label: 'Cloud Lab Platform',              icon: <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" /></svg>, color: 'border-cyan-400/25 bg-cyan-400/5 text-cyan-400' },
+          ].map((item, i) => (
+            <div key={item.label}
+              className={`rounded-2xl border ${item.color} px-4 py-4 flex flex-col items-center text-center gap-2.5`}
+              style={{ animation: `fade-up-in 0.4s ease ${0.05 + i * 0.06}s both` }}>
+              <div className="opacity-80">{item.icon}</div>
+              <p className="text-white text-xs font-semibold leading-snug">{item.label}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Footer strip */}
+      <div className="relative z-10 border-t border-[var(--border)] px-8 sm:px-12 lg:px-16 py-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p className="text-[var(--text-muted)] text-sm">
+          Stay connected to learn more about upcoming products.
+        </p>
+        <PrimaryBtn onClick={() => scrollTo('contact')} size="md">
+          Stay Updated <ArrowRight />
+        </PrimaryBtn>
       </div>
     </div>
   );

@@ -40,6 +40,10 @@ html {
     line-height: 1.6;
   }
 
+  h1, h2, h3 {
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
+  }
+
   /* Multi-point ambient glow — fixed so it doesn't scroll */
   body::before {
     content: '';
@@ -244,3 +248,32 @@ html {
 /* Section divider fade */
 .section-fade-top    { mask-image: linear-gradient(to bottom, transparent, black 40%); }
 .section-fade-bottom { mask-image: linear-gradient(to top, transparent, black 40%); }
+
+/* Timeline connector line */
+.timeline-line {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(to right, rgba(249,115,22,0.4), rgba(249,115,22,0.1));
+}
+
+/* Tech grid card */
+.tech-card-hover {
+  transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+}
+.tech-card-hover:hover {
+  border-color: rgba(249,115,22,0.35);
+  background-color: rgba(249,115,22,0.06);
+  transform: translateY(-3px);
+}
+
+/* Why card hover */
+.why-card-hover {
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+.why-card-hover:hover {
+  box-shadow: 0 0 0 1px rgba(249,115,22,0.15), 0 16px 48px rgba(0,0,0,0.5);
+  transform: translateY(-3px);
+}
