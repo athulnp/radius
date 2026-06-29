@@ -501,10 +501,10 @@ function SectionLabel({ tag, title, desc, align = 'center' }) {
   const ref = useReveal();
   const alignCls = align === 'left' ? 'text-left' : 'text-center mx-auto';
   return (
-    <div ref={ref} className={`reveal mb-14 md:mb-20 max-w-2xl ${alignCls}`}>
+    <div ref={ref} className={`reveal mb-8 sm:mb-12 lg:mb-16 max-w-2xl ${alignCls}`}>
       <Tag>{tag}</Tag>
-      <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-5 leading-tight">{title}</h2>
-      {desc && <p className="text-[var(--text-muted)] text-base md:text-lg leading-relaxed">{desc}</p>}
+      <h2 className="text-2xl xs:text-3xl sm:text-4xl lg:text-5xl font-bold mb-3 sm:mb-5 leading-tight">{title}</h2>
+      {desc && <p className="text-[var(--text-muted)] text-sm sm:text-base md:text-lg leading-relaxed">{desc}</p>}
     </div>
   );
 }
@@ -518,38 +518,48 @@ function HeroVisual() {
   const iconSize = iconFull - margin * 2;
 
   const activity = [
-    { label: 'SS7 MAP conformance', status: 'PASSED', color: 'text-emerald-400' },
-    { label: 'Diameter AVP validation', status: 'PASSED', color: 'text-emerald-400' },
-    { label: 'GTPv2 handover seq.', status: 'RUNNING', color: 'text-amber-400' },
-    { label: '5G NR RRC test suite', status: 'QUEUED', color: 'text-sky-400' },
+    { label: 'SS7 MAP conformance',   status: 'PASSED',  color: 'text-emerald-400' },
+    { label: 'Diameter AVP validation',status: 'PASSED',  color: 'text-emerald-400' },
+    { label: 'GTPv2 handover seq.',   status: 'RUNNING', color: 'text-amber-400'   },
+    { label: '5G NR RRC test suite',  status: 'QUEUED',  color: 'text-sky-400'     },
   ];
 
   return (
-    <div className="relative flex items-center justify-center select-none min-h-[360px] sm:min-h-[420px] lg:min-h-[500px]">
+    /* Outer wrapper: on mobile we don't need giant min-height or absolute rings bleeding out */
+    <div className="relative flex items-center justify-center select-none py-8 lg:py-0 lg:min-h-[500px] w-full overflow-hidden">
 
-      {/* Concentric rings */}
-      {[380, 280, 190].map((size, i) => (
-        <div key={size} className="absolute rounded-full border border-brand/[0.06]"
-          style={{ width: size, height: size, animation: `pulse-glow 4s ease-in-out ${i * 1.2}s infinite` }} />
-      ))}
+      {/* Concentric rings — clipped on mobile, only visible on lg+ */}
+      <div className="hidden lg:block">
+        {[380, 280, 190].map((size, i) => (
+          <div key={size} className="absolute rounded-full border border-brand/[0.06]"
+            style={{
+              width: size, height: size,
+              top: '50%', left: '50%',
+              transform: 'translate(-50%, -50%)',
+              animation: `pulse-glow 4s ease-in-out ${i * 1.2}s infinite`,
+            }} />
+        ))}
+      </div>
 
-      {/* Floating metric chips */}
-      {[
-        { v: '500+',  l: 'Test Cases',  pos: 'top-4 right-2 sm:top-8 sm:right-6',    delay: '0s',   rot: '-rotate-2'  },
-        { v: '99.9%', l: 'Accuracy',    pos: 'bottom-4 right-2 sm:bottom-8 sm:right-6', delay: '1.8s', rot: 'rotate-1'  },
-        { v: '50+',   l: 'Operators',   pos: 'bottom-4 left-2 sm:bottom-8 sm:left-6', delay: '3.2s', rot: '-rotate-1' },
-        { v: '10+',   l: 'Years',       pos: 'top-4 left-2 sm:top-8 sm:left-6',       delay: '2.5s', rot: 'rotate-2'  },
-      ].map(({ v, l, pos, delay, rot }) => (
-        <div key={l}
-          className={`absolute ${pos} ${rot} glass border border-[var(--border)] rounded-2xl px-3 py-2.5 animate-float-alt shadow-card z-10`}
-          style={{ animationDelay: delay }}>
-          <p className="text-brand font-bold text-sm leading-none">{v}</p>
-          <p className="text-[var(--text-muted)] text-[10px] mt-0.5 leading-none font-medium">{l}</p>
-        </div>
-      ))}
+      {/* Floating metric chips — only on sm+ to avoid cramping mobile */}
+      <div className="hidden sm:block">
+        {[
+          { v: '500+',  l: 'Test Cases', pos: 'top-6 right-4 lg:top-8 lg:right-6',     delay: '0s',   rot: '-rotate-2' },
+          { v: '99.9%', l: 'Accuracy',   pos: 'bottom-6 right-4 lg:bottom-8 lg:right-6', delay: '1.8s', rot: 'rotate-1'  },
+          { v: '50+',   l: 'Operators',  pos: 'bottom-6 left-4 lg:bottom-8 lg:left-6',   delay: '3.2s', rot: '-rotate-1' },
+          { v: '10+',   l: 'Years',      pos: 'top-6 left-4 lg:top-8 lg:left-6',         delay: '2.5s', rot: 'rotate-2'  },
+        ].map(({ v, l, pos, delay, rot }) => (
+          <div key={l}
+            className={`absolute ${pos} ${rot} glass border border-[var(--border)] rounded-2xl px-3 py-2.5 animate-float-alt shadow-card z-10`}
+            style={{ animationDelay: delay }}>
+            <p className="text-brand font-bold text-sm leading-none">{v}</p>
+            <p className="text-[var(--text-muted)] text-[10px] mt-0.5 leading-none font-medium">{l}</p>
+          </div>
+        ))}
+      </div>
 
       {/* Central dashboard card */}
-      <div className="relative z-20 w-[260px] sm:w-[300px] glass border border-[var(--border-light)] rounded-3xl overflow-hidden shadow-card-lg animate-float grad-border">
+      <div className="relative z-20 w-[260px] xs:w-[288px] sm:w-[300px] glass border border-[var(--border-light)] rounded-3xl overflow-hidden shadow-card-lg animate-float grad-border">
 
         {/* Card header */}
         <div className="px-5 pt-5 pb-4 border-b border-[var(--border)]">
@@ -604,6 +614,20 @@ function HeroVisual() {
             ))}
           </div>
         </div>
+      </div>
+
+      {/* Mobile-only stat row below card */}
+      <div className="absolute bottom-0 inset-x-0 sm:hidden flex justify-center gap-4 pb-1">
+        {[
+          { v: '500+', l: 'Test Cases', c: 'text-brand' },
+          { v: '50+',  l: 'Operators',  c: 'text-sky-400' },
+          { v: '99.9%',l: 'Accuracy',   c: 'text-emerald-400' },
+        ].map(({ v, l, c }) => (
+          <div key={l} className="text-center">
+            <p className={`text-sm font-bold ${c} leading-none`}>{v}</p>
+            <p className="text-[var(--text-muted)] text-[9px] mt-0.5 font-medium">{l}</p>
+          </div>
+        ))}
       </div>
     </div>
   );
@@ -784,12 +808,21 @@ export default function RadiusCoreWebsite() {
         {/* Brand accent bar */}
         <div className="absolute left-0 inset-y-10 w-[2px] rounded-full bg-gradient-to-b from-transparent via-brand to-transparent opacity-70" />
 
-        <div className="relative z-10 w-full h-full flex flex-col lg:flex-row items-center px-8 sm:px-12 lg:px-14 gap-8 lg:gap-10 py-10">
-          {/* Left — text (45% width on desktop) */}
+        <div className="relative z-10 w-full h-full flex flex-col lg:flex-row items-center px-5 sm:px-10 lg:px-14 gap-6 lg:gap-10 py-8 sm:py-10">
+          {/* Left — text */}
           <div className="flex flex-col justify-center w-full lg:w-[45%] lg:flex-shrink-0">
             <Tag>{s.tag}</Tag>
-            <h2 className="text-3xl sm:text-4xl lg:text-[2.5rem] font-bold text-white mb-4 whitespace-pre-line leading-[1.12]">{s.title}</h2>
-            <p className="text-[var(--text-muted)] text-sm sm:text-base leading-relaxed mb-7">{s.desc}</p>
+            <h2 className="text-2xl xs:text-3xl sm:text-4xl lg:text-[2.5rem] font-bold text-white mb-3 sm:mb-4 whitespace-pre-line leading-[1.12]">{s.title}</h2>
+            <p className="text-[var(--text-muted)] text-sm leading-relaxed mb-5 sm:mb-7 line-clamp-3 sm:line-clamp-none">{s.desc}</p>
+            {/* Metrics row */}
+            <div className="flex gap-4 sm:gap-6 mb-5 sm:mb-7">
+              {s.metrics.map(m => (
+                <div key={m.l}>
+                  <p className={`text-lg sm:text-xl font-bold ${m.color} leading-none`}>{m.v}</p>
+                  <p className="text-[var(--text-muted)] text-[10px] mt-0.5 font-medium">{m.l}</p>
+                </div>
+              ))}
+            </div>
             <div className="flex flex-wrap gap-3">
               <PrimaryBtn onClick={() => scrollTo(s.target)}>
                 {s.cta} <ArrowRight />
@@ -797,7 +830,7 @@ export default function RadiusCoreWebsite() {
             </div>
           </div>
 
-          {/* Right — fills remaining space */}
+          {/* Right — fills remaining space, desktop only */}
           <div className="hidden lg:flex flex-1 items-center justify-center h-full min-w-0">
             {visual}
           </div>
@@ -1034,32 +1067,31 @@ export default function RadiusCoreWebsite() {
 
         {/* Main content */}
         <div ref={heroRef}
-          className="reveal relative z-10 flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-10 pt-14 pb-10 sm:pt-20 sm:pb-14 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          className="reveal relative z-10 flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-10 pt-10 pb-8 sm:pt-16 sm:pb-12 lg:pt-20 lg:pb-14 grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
 
           {/* Left — copy */}
           <div>
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2.5 glass border border-[var(--border)] rounded-full px-4 py-2 text-xs font-medium mb-8">
-              <div className="dot-live" />
-              <span className="text-brand">Telecom Engineering</span>
-              <span className="w-px h-3 bg-[var(--border)]" />
-              <span className="text-[var(--text-muted)]">QA Automation · 5G Validation</span>
+            {/* Badge — split on mobile so it doesn't overflow */}
+            <div className="inline-flex flex-wrap items-center gap-2 glass border border-[var(--border)] rounded-full px-3 py-1.5 xs:px-4 xs:py-2 text-xs font-medium mb-6 sm:mb-8">
+              <div className="dot-live flex-shrink-0" />
+              <span className="text-brand font-semibold">Telecom Engineering</span>
+              <span className="hidden xs:inline w-px h-3 bg-[var(--border)]" />
+              <span className="hidden xs:inline text-[var(--text-muted)]">QA Automation · 5G Validation</span>
             </div>
 
-            <h1 className="text-4xl xs:text-5xl sm:text-5xl lg:text-6xl xl:text-[4.5rem] font-bold leading-[1.08] tracking-tight mb-6">
+            <h1 className="text-3xl xs:text-4xl sm:text-5xl lg:text-6xl xl:text-[4.5rem] font-bold leading-[1.08] tracking-tight mb-4 sm:mb-6">
               Engineering the{' '}
               <span className="text-gradient-animate">Future</span>{' '}
               of Telecom<br className="hidden sm:block" /> Validation
             </h1>
 
-            <p className="text-[var(--text-muted)] text-base sm:text-lg leading-relaxed mb-10 max-w-lg">
+            <p className="text-[var(--text-muted)] text-sm sm:text-base lg:text-lg leading-relaxed mb-7 sm:mb-10 max-w-lg">
               Radius Core Labs is a specialized telecom engineering company helping operators,
-               MVNOs, vendors, and enterprises deliver reliable 4G, 5G, IMS, 
-               and cloud-native networks through expert validation, automation,
-                and quality engineering.
+              MVNOs, vendors, and enterprises deliver reliable 4G, 5G, IMS, and cloud-native
+              networks through expert validation, automation, and quality engineering.
             </p>
 
-            <div className="flex flex-wrap gap-3 mb-10">
+            <div className="flex flex-wrap gap-3 mb-7 sm:mb-10">
               <PrimaryBtn onClick={() => scrollTo('services')} size="lg">
                 Explore Services <ArrowRight />
               </PrimaryBtn>
@@ -1069,8 +1101,8 @@ export default function RadiusCoreWebsite() {
             </div>
 
             {/* Trust row */}
-            <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-[var(--text-muted)]">
-              {['ISO 27001 Aligned', '50+ Operators', 'Global Coverage'].map((t, i) => (
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-[var(--text-muted)]">
+              {['ISO 27001 Aligned', '50+ Operators', 'Global Coverage'].map((t) => (
                 <span key={t} className="flex items-center gap-1.5">
                   <svg className="w-3.5 h-3.5 text-brand flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
@@ -1081,23 +1113,23 @@ export default function RadiusCoreWebsite() {
             </div>
           </div>
 
-          {/* Right — visual */}
-          <HeroVisual />
+          {/* Right — visual: hidden on small mobile, visible from sm+ */}
+          <div className="hidden sm:block">
+            <HeroVisual />
+          </div>
         </div>
 
         {/* Stats bar */}
         <div ref={statsRef} className="reveal relative z-10 border-t border-[var(--border)] glass">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 grid grid-cols-3 sm:grid-cols-6">
             {STATS.map((stat, i) => {
-              // Mobile (3-col): border-r unless last in row (i%3===2)
-              // SM+ (6-col): border-r unless last item (i===5)
               const mobileRight = i % 3 !== 2 ? 'border-r' : '';
-              const smRight = i < 5 ? 'sm:border-r' : 'sm:border-r-0';
+              const smRight     = i < 5 ? 'sm:border-r' : 'sm:border-r-0';
               return (
                 <div key={stat.label}
-                  className={`text-center py-5 px-3 border-[var(--border)] ${mobileRight} ${smRight} ${i < 3 ? 'border-b sm:border-b-0' : ''}`}>
-                  <p className="text-xl sm:text-2xl font-bold text-gradient leading-none">{stat.value}</p>
-                  <p className="text-[var(--text-muted)] text-[10px] sm:text-xs font-medium mt-1.5 leading-tight">{stat.label}</p>
+                  className={`text-center py-4 sm:py-5 px-2 sm:px-3 border-[var(--border)] ${mobileRight} ${smRight} ${i < 3 ? 'border-b sm:border-b-0' : ''}`}>
+                  <p className="text-lg sm:text-2xl font-bold text-gradient leading-none">{stat.value}</p>
+                  <p className="text-[var(--text-muted)] text-[9px] sm:text-xs font-medium mt-1 sm:mt-1.5 leading-tight">{stat.label}</p>
                 </div>
               );
             })}
@@ -1109,7 +1141,7 @@ export default function RadiusCoreWebsite() {
       <WhoWeAreSection />
 
       {/* ══════════════════════════ SERVICES ══════════════════════════ */}
-      <section id="services" className="py-24 sm:py-28 lg:py-32 px-4 sm:px-6 lg:px-10">
+      <section id="services" className="py-14 sm:py-20 lg:py-28 px-4 sm:px-6 lg:px-10">
         <div className="max-w-7xl mx-auto">
           <SectionLabel
             tag="What We Do"
@@ -1130,7 +1162,7 @@ export default function RadiusCoreWebsite() {
       </section>
 
       {/* ══════════════════════════ WHY RADIUS CORE ══════════════════════════ */}
-      <section id="expertise" className="py-24 sm:py-28 lg:py-32 px-4 sm:px-6 lg:px-10 relative overflow-hidden">
+      <section id="expertise" className="py-14 sm:py-20 lg:py-28 px-4 sm:px-6 lg:px-10 relative overflow-hidden">
         <div className="absolute inset-0 bg-navy-900/25 pointer-events-none" />
         <div className="absolute top-0 right-0 w-96 h-96 bg-brand/3 rounded-full blur-[120px] pointer-events-none" />
         <div className="max-w-7xl mx-auto relative">
@@ -1165,7 +1197,7 @@ export default function RadiusCoreWebsite() {
       </section>
 
       {/* ══════════════════════════ DELIVERY PROCESS ══════════════════════════ */}
-      <section id="process" className="py-24 sm:py-28 lg:py-32 px-4 sm:px-6 lg:px-10 relative overflow-hidden">
+      <section id="process" className="py-14 sm:py-20 lg:py-28 px-4 sm:px-6 lg:px-10 relative overflow-hidden">
         <div className="absolute inset-0 bg-navy-900/50 pointer-events-none" />
         <div className="max-w-7xl mx-auto relative">
           <SectionLabel
@@ -1182,7 +1214,7 @@ export default function RadiusCoreWebsite() {
       </section>
 
       {/* ══════════════════════════ INDUSTRIES ══════════════════════════ */}
-      <section id="industries" className="py-24 sm:py-28 lg:py-32 px-4 sm:px-6 lg:px-10 relative overflow-hidden">
+      <section id="industries" className="py-14 sm:py-20 lg:py-28 px-4 sm:px-6 lg:px-10 relative overflow-hidden">
         <div className="absolute inset-0 bg-navy-900/40 pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-80 h-80 bg-sky-500/3 rounded-full blur-[100px] pointer-events-none" />
         <div className="max-w-7xl mx-auto relative">
@@ -1200,7 +1232,7 @@ export default function RadiusCoreWebsite() {
       </section>
 
       {/* ══════════════════════════ TECHNOLOGIES ══════════════════════════ */}
-      <section id="technologies" className="py-24 sm:py-28 lg:py-32 px-4 sm:px-6 lg:px-10">
+      <section id="technologies" className="py-14 sm:py-20 lg:py-28 px-4 sm:px-6 lg:px-10">
         <div className="max-w-7xl mx-auto">
           <SectionLabel
             tag="Technology Stack"
@@ -1241,7 +1273,7 @@ export default function RadiusCoreWebsite() {
       </section>
 
       {/* ══════════════════════════ RC LABS ══════════════════════════ */}
-      <section id="rclabs" className="py-24 sm:py-28 lg:py-32 px-4 sm:px-6 lg:px-10 relative overflow-hidden">
+      <section id="rclabs" className="py-14 sm:py-20 lg:py-28 px-4 sm:px-6 lg:px-10 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-navy-950 via-navy-900/60 to-navy-950 pointer-events-none" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-brand/4 rounded-full blur-[120px] pointer-events-none" />
         <div className="max-w-4xl mx-auto relative">
@@ -1250,7 +1282,7 @@ export default function RadiusCoreWebsite() {
       </section>
 
       {/* ══════════════════════════ ABOUT ══════════════════════════ */}
-      <section id="about" className="py-24 sm:py-28 lg:py-32 px-4 sm:px-6 lg:px-10">
+      <section id="about" className="py-14 sm:py-20 lg:py-28 px-4 sm:px-6 lg:px-10">
         <div className="max-w-7xl mx-auto">
           <SectionLabel
             tag="About Us"
@@ -1258,53 +1290,29 @@ export default function RadiusCoreWebsite() {
             desc="Radius Core was founded with a singular mission — to bring engineering-first testing discipline to the global telecom industry."
           />
 
-          <div className="grid sm:grid-cols-3 gap-5 lg:gap-6 mb-16">
+          <div className="grid sm:grid-cols-3 gap-4 sm:gap-5 lg:gap-6 mb-10 sm:mb-16">
             {[
               {
-                icon: (
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
-                  </svg>
-                ),
+                icon: <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" /></svg>,
                 title: 'Mission',
                 desc: 'Making telecom testing rigorous, automated, and accessible — eliminating network failures before they reach production.',
                 accent: 'border-brand/20 bg-brand/5',
               },
               {
-                icon: (
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                  </svg>
-                ),
+                icon: <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>,
                 title: 'Vision',
                 desc: 'A world where every packet is trusted — telecom networks that are continuously validated and self-assuring.',
                 accent: 'border-sky-500/20 bg-sky-500/5',
               },
               {
-                icon: (
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-                ),
+                icon: <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" /></svg>,
                 title: 'Our People',
                 desc: 'Seasoned telecom engineers with hands-on experience across major operators, equipment vendors, and standards bodies.',
                 accent: 'border-emerald-500/20 bg-emerald-500/5',
               },
-            ].map((item, i) => {
-              const ref = useReveal();
-              return (
-                <div key={item.title} ref={ref}
-                  className={`reveal card-hover bg-navy-900 border ${item.accent} rounded-2xl p-7`}
-                  style={{ transitionDelay: `${i * 100}ms` }}>
-                  <div className="w-11 h-11 rounded-xl bg-navy-800 border border-[var(--border-light)] flex items-center justify-center text-brand mb-5">
-                    {item.icon}
-                  </div>
-                  <h3 className="text-white font-semibold text-base mb-2.5">{item.title}</h3>
-                  <p className="text-[var(--text-muted)] text-sm leading-relaxed">{item.desc}</p>
-                </div>
-              );
-            })}
+            ].map((item, i) => (
+              <AboutCard key={item.title} item={item} index={i} />
+            ))}
           </div>
 
           {/* Full-width highlight banner */}
@@ -1313,7 +1321,7 @@ export default function RadiusCoreWebsite() {
       </section>
 
       {/* ══════════════════════════ CONTACT ══════════════════════════ */}
-      <section id="contact" className="py-24 sm:py-28 lg:py-32 px-4 sm:px-6 lg:px-10 relative overflow-hidden">
+      <section id="contact" className="py-14 sm:py-20 lg:py-28 px-4 sm:px-6 lg:px-10 relative overflow-hidden">
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-96 h-64 bg-brand/4 rounded-full blur-[100px] pointer-events-none" />
         <ContactSection scrollTo={scrollTo} />
       </section>
@@ -1399,6 +1407,24 @@ export default function RadiusCoreWebsite() {
 }
 
 /* ─────────────────────────────────────────────
+   About card
+───────────────────────────────────────────── */
+function AboutCard({ item, index }) {
+  const ref = useReveal();
+  return (
+    <div ref={ref}
+      className={`reveal card-hover bg-navy-900 border ${item.accent} rounded-2xl p-5 sm:p-7`}
+      style={{ transitionDelay: `${index * 100}ms` }}>
+      <div className="w-11 h-11 rounded-xl bg-navy-800 border border-[var(--border-light)] flex items-center justify-center text-brand mb-4 sm:mb-5">
+        {item.icon}
+      </div>
+      <h3 className="text-white font-semibold text-base mb-2">{item.title}</h3>
+      <p className="text-[var(--text-muted)] text-sm leading-relaxed">{item.desc}</p>
+    </div>
+  );
+}
+
+/* ─────────────────────────────────────────────
    About highlight banner
 ───────────────────────────────────────────── */
 function AboutBanner({ scrollTo }) {
@@ -1410,10 +1436,10 @@ function AboutBanner({ scrollTo }) {
       <div className="absolute bottom-0 right-10 w-56 h-28 bg-sky-500/4 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-brand/40 to-transparent" />
 
-      <div className="relative z-10 px-8 sm:px-12 lg:px-16 py-10 sm:py-12 flex flex-col sm:flex-row items-center justify-between gap-8">
+      <div className="relative z-10 px-5 sm:px-10 lg:px-16 py-8 sm:py-12 flex flex-col sm:flex-row items-center justify-between gap-6 sm:gap-8">
         <div className="text-center sm:text-left max-w-xl">
           <p className="text-brand text-xs font-semibold uppercase tracking-[0.2em] mb-3">Trusted Partner</p>
-          <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white mb-2">
+          <h3 className="text-lg xs:text-xl sm:text-2xl lg:text-3xl font-bold text-white mb-2">
             Serving operators across <span className="text-gradient">4 continents</span>
           </h3>
           <p className="text-[var(--text-muted)] text-sm leading-relaxed">
@@ -1447,21 +1473,21 @@ function ContactSection({ scrollTo }) {
           <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-brand/50 to-transparent" />
         </div>
 
-        <div className="relative z-10 px-6 sm:px-14 lg:px-20 py-16 sm:py-20">
-          <div className="text-center mb-12">
+        <div className="relative z-10 px-5 sm:px-10 lg:px-16 py-10 sm:py-16 lg:py-20">
+          <div className="text-center mb-8 sm:mb-12">
             <Tag>Get In Touch</Tag>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-5">
+            <h2 className="text-2xl xs:text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-5">
               Ready to Transform<br />
               <span className="text-gradient">Your Testing?</span>
             </h2>
-            <p className="text-[var(--text-muted)] text-base sm:text-lg leading-relaxed max-w-xl mx-auto">
+            <p className="text-[var(--text-muted)] text-sm sm:text-base lg:text-lg leading-relaxed max-w-xl mx-auto">
               Partner with Radius Core for precision engineering and intelligent
               telecom validation. Let's build reliable networks together.
             </p>
           </div>
 
           {/* Contact options */}
-          <div className="grid sm:grid-cols-3 gap-4 mb-10">
+          <div className="grid grid-cols-1 xs:grid-cols-3 gap-3 sm:gap-4 mb-8 sm:mb-10">
             {[
               {
                 icon: (
@@ -1539,26 +1565,26 @@ function RCLabsBanner({ scrollTo }) {
       <div className="absolute top-0 left-0 w-60 h-60 bg-brand/5 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 right-0 w-80 h-40 bg-violet-500/4 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="relative z-10 px-8 sm:px-12 lg:px-16 py-12 sm:py-16">
+      <div className="relative z-10 px-5 sm:px-10 lg:px-16 py-8 sm:py-12 lg:py-16">
         {/* Header */}
-        <div className="text-center mb-10">
-          <div className="inline-flex items-center gap-2.5 glass border border-[var(--border)] rounded-full px-4 py-2 text-xs font-medium mb-6">
-            <span className="w-1.5 h-1.5 rounded-full bg-brand animate-pulse" />
+        <div className="text-center mb-7 sm:mb-10">
+          <div className="inline-flex items-center gap-2 sm:gap-2.5 glass border border-[var(--border)] rounded-full px-3 sm:px-4 py-1.5 sm:py-2 text-xs font-medium mb-5 sm:mb-6">
+            <span className="w-1.5 h-1.5 rounded-full bg-brand animate-pulse flex-shrink-0" />
             <span className="text-brand font-semibold">Innovation Lab</span>
             <span className="w-px h-3 bg-[var(--border)]" />
             <span className="text-[var(--text-muted)]">Coming Soon</span>
           </div>
-          <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4 leading-tight">
+          <h3 className="text-xl xs:text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-3 sm:mb-4 leading-tight">
             Future Products — <span className="text-gradient">RC Labs</span>
           </h3>
-          <p className="text-[var(--text-muted)] text-base sm:text-lg leading-relaxed max-w-2xl mx-auto">
-            Radius Core Labs is investing in next-generation telecom engineering products.
-            This tells our clients we're building intellectual property, not just selling services.
+          <p className="text-[var(--text-muted)] text-sm sm:text-base lg:text-lg leading-relaxed max-w-2xl mx-auto">
+            Radius Core Labs is investing in next-generation telecom engineering products,
+            building intellectual property that goes beyond pure services.
           </p>
         </div>
 
         {/* Product grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 mb-10">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-3 mb-7 sm:mb-10">
           {[
             { label: 'AI Test Assistant',              icon: <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>, color: 'border-brand/25 bg-brand/5 text-brand' },
             { label: 'Roaming Analytics',               icon: <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064" /></svg>, color: 'border-sky-400/25 bg-sky-400/5 text-sky-400' },
@@ -1579,7 +1605,7 @@ function RCLabsBanner({ scrollTo }) {
       </div>
 
       {/* Footer strip */}
-      <div className="relative z-10 border-t border-[var(--border)] px-8 sm:px-12 lg:px-16 py-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div className="relative z-10 border-t border-[var(--border)] px-5 sm:px-10 lg:px-16 py-4 sm:py-5 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
         <p className="text-[var(--text-muted)] text-sm">
           Stay connected to learn more about upcoming products.
         </p>

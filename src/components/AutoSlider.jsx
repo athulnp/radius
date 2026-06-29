@@ -95,7 +95,7 @@ export default function AutoSlider({ slides, currentSlide: controlled, onSlideCh
       onTouchEnd={onTouchEnd}
     >
       {/* Slide viewport */}
-      <div className="relative w-full h-[65vh] min-h-[440px] max-h-[680px]">
+      <div className="relative w-full h-[360px] sm:h-[55vh] sm:min-h-[420px] sm:max-h-[620px]">
         <div
           className="flex h-full"
           style={{
