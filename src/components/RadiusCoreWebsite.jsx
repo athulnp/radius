@@ -28,14 +28,18 @@ function useReveal(threshold = 0.1) {
      content: 68% tall, 85.5% wide
    Adds 6 px breathing room L+R for navbar/footer
 ───────────────────────────────────────────── */
-function Logo({ contentHeight = 36 }) {
-  const imgH = Math.round(contentHeight / 0.68);
-  const imgW = Math.round(imgH * 1.784);
+function Logo({ contentHeight = 36, contentWidth }) {
+  // If contentWidth is given, size by width; otherwise size by height.
+  const imgW = contentWidth != null
+    ? Math.round(contentWidth / 0.855)
+    : Math.round((contentHeight / 0.68) * 1.784);
+  const imgH = Math.round(imgW / 1.784);
   const mt   = -Math.round(imgH * 0.16);
   const ml   = -Math.round(imgW * 0.072) + 6;
-  const w    = Math.round(imgW * 0.855) + 12;
+  const w    = Math.round(imgW * 0.975) + 12;
+  const h    = Math.round(imgH * 0.60);
   return (
-    <div className="overflow-hidden rounded-md bg-white flex-shrink-0" style={{ width: w, height: contentHeight }}>
+    <div className="overflow-hidden rounded-md bg-white flex-shrink-0" style={{ width: w, height: h }}>
       <img src="/logo.png" alt="Radius Core"
         style={{ height: imgH, width: 'auto', maxWidth: 'none', marginTop: mt, marginLeft: ml, display: 'block' }} />
     </div>
@@ -472,7 +476,7 @@ function PrimaryBtn({ onClick, children, href, size = 'md' }) {
   const sz = size === 'lg'
     ? 'px-8 py-4 text-sm rounded-xl gap-2.5'
     : 'px-6 py-3 text-sm rounded-xl gap-2';
-  const cls = `inline-flex items-center ${sz} bg-brand hover:bg-brand-hover active:scale-95 text-white font-semibold transition-all duration-200 shadow-brand leading-none select-none`;
+  const cls = `inline-flex items-center ${sz} bg-brand hover:bg-brand-hover active:scale-95 text-white font-semibold transition-all duration-200 leading-none select-none`;
   if (href) return <a href={href} className={cls}>{children}</a>;
   return <button onClick={onClick} className={cls}>{children}</button>;
 }
@@ -528,8 +532,36 @@ function HeroVisual() {
     /* Outer wrapper: on mobile we don't need giant min-height or absolute rings bleeding out */
     <div className="relative flex items-center justify-center select-none py-8 lg:py-0 lg:min-h-[500px] w-full overflow-hidden">
 
-      {/* Concentric rings — clipped on mobile, only visible on lg+ */}
-      <div className="hidden lg:block">
+      {/* Background: subtle telecom grid / circuit pattern */}
+      <svg className="absolute inset-0 w-full h-full opacity-[0.045] pointer-events-none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <pattern id="hero-grid" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#f97316" strokeWidth="0.5"/>
+          </pattern>
+          <pattern id="hero-dots" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+            <circle cx="20" cy="20" r="1" fill="#f97316" />
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#hero-grid)" />
+        <rect width="100%" height="100%" fill="url(#hero-dots)" />
+        {/* Signal path lines */}
+        <g stroke="#f97316" strokeWidth="0.8" fill="none" opacity="0.6">
+          <polyline points="20,80 60,80 60,120 140,120 140,160 220,160" />
+          <polyline points="320,60 360,60 360,100 400,100 400,140" />
+          <polyline points="60,200 100,200 100,240 180,240 180,280 260,280" />
+          <polyline points="280,180 320,180 320,220 380,220" />
+          <circle cx="60" cy="80" r="3" fill="#f97316" />
+          <circle cx="140" cy="120" r="3" fill="#f97316" />
+          <circle cx="220" cy="160" r="3" fill="#f97316" />
+          <circle cx="360" cy="60" r="3" fill="#f97316" />
+          <circle cx="100" cy="200" r="3" fill="#f97316" />
+          <circle cx="180" cy="240" r="3" fill="#f97316" />
+          <circle cx="320" cy="180" r="3" fill="#f97316" />
+        </g>
+      </svg>
+
+      {/* Concentric rings — visible on all screens */}
+      <div>
         {[380, 280, 190].map((size, i) => (
           <div key={size} className="absolute rounded-full border border-brand/[0.06]"
             style={{
@@ -541,22 +573,6 @@ function HeroVisual() {
         ))}
       </div>
 
-      {/* Floating metric chips — only on sm+ to avoid cramping mobile */}
-      <div className="hidden sm:block">
-        {[
-          { v: '500+',  l: 'Test Cases', pos: 'top-6 right-4 lg:top-8 lg:right-6',     delay: '0s',   rot: '-rotate-2' },
-          { v: '99.9%', l: 'Accuracy',   pos: 'bottom-6 right-4 lg:bottom-8 lg:right-6', delay: '1.8s', rot: 'rotate-1'  },
-          { v: '50+',   l: 'Operators',  pos: 'bottom-6 left-4 lg:bottom-8 lg:left-6',   delay: '3.2s', rot: '-rotate-1' },
-          { v: '10+',   l: 'Years',      pos: 'top-6 left-4 lg:top-8 lg:left-6',         delay: '2.5s', rot: 'rotate-2'  },
-        ].map(({ v, l, pos, delay, rot }) => (
-          <div key={l}
-            className={`absolute ${pos} ${rot} glass border border-[var(--border)] rounded-2xl px-3 py-2.5 animate-float-alt shadow-card z-10`}
-            style={{ animationDelay: delay }}>
-            <p className="text-brand font-bold text-sm leading-none">{v}</p>
-            <p className="text-[var(--text-muted)] text-[10px] mt-0.5 leading-none font-medium">{l}</p>
-          </div>
-        ))}
-      </div>
 
       {/* Central dashboard card */}
       <div className="relative z-20 w-[260px] xs:w-[288px] sm:w-[300px] glass border border-[var(--border-light)] rounded-3xl overflow-hidden shadow-card-lg animate-float grad-border">
@@ -616,19 +632,6 @@ function HeroVisual() {
         </div>
       </div>
 
-      {/* Mobile-only stat row below card */}
-      <div className="absolute bottom-0 inset-x-0 sm:hidden flex justify-center gap-4 pb-1">
-        {[
-          { v: '500+', l: 'Test Cases', c: 'text-brand' },
-          { v: '50+',  l: 'Operators',  c: 'text-sky-400' },
-          { v: '99.9%',l: 'Accuracy',   c: 'text-emerald-400' },
-        ].map(({ v, l, c }) => (
-          <div key={l} className="text-center">
-            <p className={`text-sm font-bold ${c} leading-none`}>{v}</p>
-            <p className="text-[var(--text-muted)] text-[9px] mt-0.5 font-medium">{l}</p>
-          </div>
-        ))}
-      </div>
     </div>
   );
 }
@@ -839,37 +842,17 @@ export default function RadiusCoreWebsite() {
     );
   }
 
-  // ── Slide 1 visual: Protocol stack diagram ──
+  // ── Slide 1 visual: telecom engineering image ──
   const Slide1Visual = () => (
-    <div className="relative w-full max-w-[420px] select-none">
-      {/* Stack layers */}
-      {[
-        { label: 'Application Layer',  proto: 'SIP / RCS',     color: 'border-brand/40    bg-brand/8',     dot: 'bg-brand',       w: 'w-full' },
-        { label: 'Session Layer',      proto: 'IMS / VoLTE',   color: 'border-sky-400/40  bg-sky-400/8',   dot: 'bg-sky-400',     w: 'w-[92%]' },
-        { label: 'Transport Layer',    proto: 'Diameter / SS7', color: 'border-violet-400/40 bg-violet-400/8', dot: 'bg-violet-400', w: 'w-[84%]' },
-        { label: 'Network Layer',      proto: 'GTP / SCTP',    color: 'border-emerald-400/40 bg-emerald-400/8', dot: 'bg-emerald-400', w: 'w-[76%]' },
-        { label: 'Radio Layer',        proto: '5G NR / LTE',   color: 'border-amber-400/40 bg-amber-400/8', dot: 'bg-amber-400',  w: 'w-[68%]' },
-      ].map((layer, i) => (
-        <div key={layer.label} className={`${layer.w} mb-2.5 ml-auto`}
-          style={{ animation: `fade-up-in 0.4s ease ${0.1 + i * 0.08}s both` }}>
-          <div className={`flex items-center justify-between border ${layer.color} rounded-xl px-4 py-2.5`}>
-            <div className="flex items-center gap-2.5">
-              <span className={`w-2 h-2 rounded-full flex-shrink-0 ${layer.dot}`} />
-              <span className="text-white text-xs font-medium">{layer.label}</span>
-            </div>
-            <span className="text-[var(--text-muted)] text-[10px] font-mono">{layer.proto}</span>
-          </div>
-        </div>
-      ))}
-      {/* PASSED badge */}
-      <div className="mt-4 flex justify-end" style={{ animation: 'fade-up-in 0.4s ease 0.55s both' }}>
-        <div className="flex items-center gap-2 glass border border-emerald-400/30 rounded-xl px-4 py-2">
-          <svg className="w-3.5 h-3.5 text-emerald-400" fill="currentColor" viewBox="0 0 20 20">
-            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/>
-          </svg>
-          <span className="text-emerald-400 text-xs font-semibold">All layers conformant</span>
-        </div>
-      </div>
+    <div className="relative w-full max-w-[520px] select-none"
+      style={{ animation: 'fade-up-in 0.5s ease 0.1s both' }}>
+      <img
+        src="/slide1-network.jpg"
+        alt="Telecom network analysis"
+        className="w-full h-auto rounded-2xl object-cover shadow-card-lg"
+        style={{ maskImage: 'radial-gradient(ellipse 95% 90% at 50% 50%, black 60%, transparent 100%)', WebkitMaskImage: 'radial-gradient(ellipse 95% 90% at 50% 50%, black 60%, transparent 100%)' }}
+      />
+      <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-navy-950/50 via-transparent to-transparent pointer-events-none" />
     </div>
   );
 
@@ -919,76 +902,10 @@ export default function RadiusCoreWebsite() {
     );
   };
 
-  // ── Slide 3 visual: Global network map ──
-  const Slide3Visual = () => (
-    <div className="relative w-full max-w-[420px] select-none">
-      {/* Map area */}
-      <div className="glass border border-[var(--border)] rounded-2xl p-5 mb-3"
-        style={{ animation: 'fade-up-in 0.35s ease 0.1s both' }}>
-        <div className="flex items-center justify-between mb-4">
-          <span className="text-white text-xs font-semibold">Global Coverage</span>
-          <div className="flex items-center gap-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" style={{ animation: 'pulse-glow 2s ease-in-out infinite' }} />
-            <span className="text-emerald-400 text-[10px]">Live</span>
-          </div>
-        </div>
-        {/* Simplified SVG world representation */}
-        <svg viewBox="0 0 300 140" className="w-full h-auto opacity-90">
-          {/* Background */}
-          <rect width="300" height="140" fill="transparent" />
-          {/* Grid lines */}
-          {[35,70,105].map(y => <line key={y} x1="0" y1={y} x2="300" y2={y} stroke="rgba(255,255,255,0.05)" strokeWidth="0.5"/>)}
-          {[75,150,225].map(x => <line key={x} x1={x} y1="0" x2={x} y2="140" stroke="rgba(255,255,255,0.05)" strokeWidth="0.5"/>)}
-          {/* Continent blobs (simplified) */}
-          <ellipse cx="75"  cy="65"  rx="38" ry="28" fill="rgba(249,115,22,0.12)" stroke="rgba(249,115,22,0.25)" strokeWidth="0.8"/>
-          <ellipse cx="155" cy="55"  rx="30" ry="22" fill="rgba(56,189,248,0.10)" stroke="rgba(56,189,248,0.25)"  strokeWidth="0.8"/>
-          <ellipse cx="230" cy="65"  rx="42" ry="30" fill="rgba(56,189,248,0.08)" stroke="rgba(56,189,248,0.2)"   strokeWidth="0.8"/>
-          <ellipse cx="240" cy="100" rx="20" ry="12" fill="rgba(167,139,250,0.10)" stroke="rgba(167,139,250,0.25)" strokeWidth="0.8"/>
-          <ellipse cx="80"  cy="100" rx="22" ry="14" fill="rgba(52,211,153,0.10)" stroke="rgba(52,211,153,0.25)"  strokeWidth="0.8"/>
-          {/* Network nodes */}
-          {[
-            { cx: 75,  cy: 65,  r: 4, c: '#f97316', label: 'EU'  },
-            { cx: 155, cy: 55,  r: 4, c: '#38bdf8', label: 'ME'  },
-            { cx: 225, cy: 60,  r: 4, c: '#38bdf8', label: 'APAC'},
-            { cx: 80,  cy: 100, r: 4, c: '#34d399', label: 'NA'  },
-            { cx: 240, cy: 100, r: 3, c: '#a78bfa', label: 'AU'  },
-          ].map(({ cx, cy, r, c, label }) => (
-            <g key={label}>
-              <circle cx={cx} cy={cy} r={r+4} fill={c} fillOpacity="0.12" />
-              <circle cx={cx} cy={cy} r={r}   fill={c} fillOpacity="0.9" />
-              <text x={cx} y={cy-8} textAnchor="middle" fill={c} fontSize="7" fontWeight="600">{label}</text>
-            </g>
-          ))}
-          {/* Connection lines */}
-          {[
-            [75,65, 155,55], [155,55, 225,60], [75,65, 80,100], [225,60, 240,100],
-          ].map(([x1,y1,x2,y2], i) => (
-            <line key={i} x1={x1} y1={y1} x2={x2} y2={y2}
-              stroke="rgba(249,115,22,0.25)" strokeWidth="0.8" strokeDasharray="4 3"/>
-          ))}
-        </svg>
-      </div>
-      {/* Stat chips */}
-      <div className="grid grid-cols-3 gap-2">
-        {[
-          { v: '50+', l: 'Operators', c: 'text-brand' },
-          { v: '4',   l: 'Continents', c: 'text-sky-400' },
-          { v: '10+', l: 'Yrs Active', c: 'text-emerald-400' },
-        ].map(({ v, l, c }, i) => (
-          <div key={l} className="glass border border-[var(--border)] rounded-xl px-3 py-2.5 text-center"
-            style={{ animation: `fade-up-in 0.35s ease ${0.3 + i * 0.08}s both` }}>
-            <p className={`text-base font-bold ${c} leading-none`}>{v}</p>
-            <p className="text-[var(--text-muted)] text-[9px] mt-0.5">{l}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-
   const slides = [
     { label: SLIDE_DATA[0].label, content: <SlideShell s={SLIDE_DATA[0]} visual={<Slide1Visual />} /> },
     { label: SLIDE_DATA[1].label, content: <SlideShell s={SLIDE_DATA[1]} visual={<Slide2Visual />} /> },
-    { label: SLIDE_DATA[2].label, content: <SlideShell s={SLIDE_DATA[2]} visual={<Slide3Visual />} /> },
+    { label: SLIDE_DATA[2].label, content: <SlideShell s={SLIDE_DATA[2]} visual={<HeroVisual />} /> },
   ];
 
   const heroRef   = useReveal(0.04);
@@ -1003,8 +920,8 @@ export default function RadiusCoreWebsite() {
         scrolled ? 'bg-navy-900/95 backdrop-blur-xl border-b border-[var(--border)] shadow-card' : 'bg-transparent'
       }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 h-16 flex items-center justify-between gap-4">
-          <button onClick={() => scrollTo('hero')} aria-label="Home" className="flex-shrink-0">
-            <Logo contentHeight={36} />
+          <button onClick={() => scrollTo('hero')} aria-label="Home" className="flex-shrink-0 pr-6 h-full flex items-center">
+            <Logo contentWidth={150} />
           </button>
 
           <nav className="hidden md:flex items-center gap-7 text-sm">
@@ -1067,7 +984,7 @@ export default function RadiusCoreWebsite() {
 
         {/* Main content */}
         <div ref={heroRef}
-          className="reveal relative z-10 flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-10 pt-10 pb-8 sm:pt-16 sm:pb-12 lg:pt-20 lg:pb-14 grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+          className="reveal relative z-10 flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-10 pt-10 pb-8 sm:pt-16 sm:pb-12 lg:pt-20 lg:pb-14 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
 
           {/* Left — copy */}
           <div>
@@ -1113,9 +1030,17 @@ export default function RadiusCoreWebsite() {
             </div>
           </div>
 
-          {/* Right — visual: hidden on small mobile, visible from sm+ */}
-          <div className="hidden sm:block">
-            <HeroVisual />
+          {/* Right — hero network image */}
+          <div className="self-stretch flex items-stretch select-none py-6 lg:py-0">
+            <div className="relative w-full">
+              <img
+                src="/hero-network.jpg"
+                alt="Global telecom network"
+                className="object-cover object-center"
+                style={{ width: '100%', height: '90%', maskImage: 'radial-gradient(ellipse 95% 90% at 55% 50%, black 50%, transparent 100%)', WebkitMaskImage: 'radial-gradient(ellipse 95% 90% at 55% 50%, black 50%, transparent 100%)' }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-navy-950/60 via-transparent to-transparent pointer-events-none" />
+            </div>
           </div>
         </div>
 
