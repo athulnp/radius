@@ -1326,7 +1326,7 @@ export default function RadiusCoreWebsite() {
           </div>
 
           <div className="border-t border-[var(--border)] pt-7 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[var(--text-subtle)]">
-            <p>© 2026 Radius Core Technologies. All rights reserved.</p>
+            <p>© 2026 Radius Core Labs. All rights reserved.</p>
             <p className="text-brand/60 font-medium tracking-wide">Testing The Future</p>
           </div>
         </div>
