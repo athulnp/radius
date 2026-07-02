@@ -1318,9 +1318,9 @@ export default function RadiusCoreWebsite() {
                   </a>
                 ))}
               </div>
-              <a href="mailto:hello@radiuscore.io"
+              <a href="mailto:hello@radiuscorelabs.com"
                 className="text-[var(--text-muted)] hover:text-brand transition-colors text-sm break-all">
-                hello@radiuscore.io
+                hello@radiuscorelabs.com
               </a>
             </div>
           </div>
@@ -1417,7 +1417,7 @@ function ContactSection({ scrollTo }) {
           </div>
 
           {/* Contact options */}
-          <div className="grid grid-cols-1 xs:grid-cols-3 gap-3 sm:gap-4 mb-8 sm:mb-10">
+          <div className="grid grid-cols-1 xs:grid-cols-2 gap-3 sm:gap-4 mb-8 sm:mb-10 max-w-2xl mx-auto">
             {[
               {
                 icon: (
@@ -1426,8 +1426,8 @@ function ContactSection({ scrollTo }) {
                   </svg>
                 ),
                 label: 'Email Us',
-                value: 'hello@radiuscore.io',
-                href: 'mailto:hello@radiuscore.io',
+                value: 'hello@radiuscorelabs.com',
+                href: 'mailto:hello@radiuscorelabs.com',
               },
               {
                 icon: (
@@ -1436,21 +1436,13 @@ function ContactSection({ scrollTo }) {
                   </svg>
                 ),
                 label: 'Live Chat',
-                value: 'Chat with our team',
-                href: '#',
-              },
-              {
-                icon: (
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                  </svg>
-                ),
-                label: 'Schedule a Call',
-                value: 'Book a 30-min slot',
-                href: '#',
+                value: 'Chat on WhatsApp',
+                href: 'https://wa.me/919847099911?text=' + encodeURIComponent("Hi Radius Core, I'd like to chat about telecom testing."),
+                external: true,
               },
             ].map((opt) => (
               <a key={opt.label} href={opt.href}
+                {...(opt.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                 className="card-hover flex flex-col items-center text-center bg-navy-900/80 border border-[var(--border)] rounded-2xl p-5 gap-3 group">
                 <div className="w-11 h-11 rounded-xl bg-navy-800 border border-[var(--border-light)] flex items-center justify-center text-brand group-hover:border-brand/40 transition-colors duration-200">
                   {opt.icon}
@@ -1464,7 +1456,7 @@ function ContactSection({ scrollTo }) {
           </div>
 
           <div className="flex flex-col xs:flex-row gap-3 justify-center">
-            <PrimaryBtn href="mailto:hello@radiuscore.io" size="lg">
+            <PrimaryBtn href="mailto:hello@radiuscorelabs.com" size="lg">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               </svg>
