@@ -5,10 +5,40 @@
 /* ── Reset ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+/* Brand-tinted text selection */
+::selection { background: rgba(249,115,22,0.28); color: #fff; }
+
 html {
   font-size: 16px;
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
+}
+
+/* Global horizontal-overflow guard — nothing may cause sideways scroll */
+html, body { overflow-x: hidden; max-width: 100%; }
+
+/* Refined custom scrollbar (desktop) */
+@media (pointer: fine) {
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: #0a1428; }
+  ::-webkit-scrollbar-thumb {
+    background: #223354;
+    border-radius: 10px;
+    border: 2px solid #0a1428;
+  }
+  ::-webkit-scrollbar-thumb:hover { background: #2d436b; }
+  html { scrollbar-color: #223354 #0a1428; scrollbar-width: thin; }
+}
+
+/* Respect reduced-motion preference — disable non-essential animation */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal, .reveal-child { opacity: 1 !important; transform: none !important; }
 }
 
 /* ── Design tokens ── */
@@ -23,8 +53,8 @@ html {
   --navy-600:     #1e3460;
   --border:       #1a2a45;
   --border-light: #223354;
-  --text-muted:   #6b82a8;
-  --text-subtle:  #3d5170;
+  --text-muted:   #8298bd;  /* nudged lighter for WCAG AA on navy */
+  --text-subtle:  #52689a;  /* nudged lighter for legibility */
   --glow-brand:   rgba(249,115,22,0.15);
   --glow-blue:    rgba(56,189,248,0.06);
 }
@@ -258,6 +288,27 @@ html {
   height: 1px;
   background: linear-gradient(to right, rgba(249,115,22,0.4), rgba(249,115,22,0.1));
 }
+
+/* ── Fluid typography — smooth scaling between breakpoints ──
+   Opt-in via class so existing Tailwind text sizes stay intact where wanted. */
+.fluid-hero  { font-size: clamp(2.25rem, 1.4rem + 4.2vw, 4.5rem); line-height: 1.06; }
+.fluid-h2    { font-size: clamp(1.6rem, 1.05rem + 2.6vw, 3rem);    line-height: 1.12; }
+.fluid-h3    { font-size: clamp(1.35rem, 1rem + 1.5vw, 2rem);      line-height: 1.15; }
+.fluid-lead  { font-size: clamp(0.95rem, 0.85rem + 0.5vw, 1.125rem); }
+
+/* Glass sheen on hover — subtle premium flourish */
+.glass-hover { position: relative; overflow: hidden; }
+.glass-hover::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -75%;
+  width: 50%; height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255,255,255,0.06), transparent);
+  transform: skewX(-18deg);
+  transition: left 0.6s ease;
+  pointer-events: none;
+}
+.glass-hover:hover::after { left: 130%; }
 
 /* Tech grid card */
 .tech-card-hover {

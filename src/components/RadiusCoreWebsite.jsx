@@ -476,7 +476,7 @@ function PrimaryBtn({ onClick, children, href, size = 'md' }) {
   const sz = size === 'lg'
     ? 'px-8 py-4 text-sm rounded-xl gap-2.5'
     : 'px-6 py-3 text-sm rounded-xl gap-2';
-  const cls = `inline-flex items-center ${sz} bg-brand hover:bg-brand-hover active:scale-95 text-white font-semibold transition-all duration-200 leading-none select-none`;
+  const cls = `glass-hover inline-flex items-center ${sz} bg-brand hover:bg-brand-hover active:scale-95 text-white font-semibold transition-all duration-200 leading-none select-none`;
   if (href) return <a href={href} className={cls}>{children}</a>;
   return <button onClick={onClick} className={cls}>{children}</button>;
 }
@@ -507,8 +507,8 @@ function SectionLabel({ tag, title, desc, align = 'center' }) {
   return (
     <div ref={ref} className={`reveal mb-8 sm:mb-12 lg:mb-16 max-w-2xl ${alignCls}`}>
       <Tag>{tag}</Tag>
-      <h2 className="text-2xl xs:text-3xl sm:text-4xl lg:text-5xl font-bold mb-3 sm:mb-5 leading-tight">{title}</h2>
-      {desc && <p className="text-[var(--text-muted)] text-sm sm:text-base md:text-lg leading-relaxed">{desc}</p>}
+      <h2 className="fluid-h2 font-bold mb-3 sm:mb-5">{title}</h2>
+      {desc && <p className="fluid-lead text-[var(--text-muted)] leading-relaxed">{desc}</p>}
     </div>
   );
 }
@@ -647,14 +647,14 @@ function WhoWeAreSection() {
       <div className="max-w-5xl mx-auto relative text-center">
         <div ref={ref} className="reveal">
           <Tag>Who We Are</Tag>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 leading-tight">
+          <h2 className="fluid-h2 font-bold mb-6">
             We Validate <span className="text-gradient">Mission-Critical</span> Networks.
           </h2>
-          <p className="text-[var(--text-muted)] text-base sm:text-lg leading-relaxed mb-6 max-w-3xl mx-auto">
+          <p className="fluid-lead text-[var(--text-muted)] leading-relaxed mb-6 max-w-3xl mx-auto">
             Every dropped call, failed registration, roaming issue, or network outage impacts millions of users.
             Our engineers help telecom providers release with confidence by validating complex mobile core networks before deployment.
           </p>
-          <p className="text-[var(--text-muted)] text-base sm:text-lg leading-relaxed max-w-3xl mx-auto">
+          <p className="fluid-lead text-[var(--text-muted)] leading-relaxed max-w-3xl mx-auto">
             From EPC to cloud-native 5G Core, Radius Core Labs delivers engineering excellence across every stage of network evolution.
           </p>
         </div>
@@ -913,7 +913,7 @@ export default function RadiusCoreWebsite() {
   const expertiseRef = useReveal(0.06);
 
   return (
-    <div className="bg-navy-950 text-white min-h-screen font-sans site-content">
+    <div className="bg-navy-950 text-white min-h-screen font-sans site-content overflow-x-hidden">
 
       {/* ══════════════════════════ NAV ══════════════════════════ */}
       <header className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
@@ -924,7 +924,7 @@ export default function RadiusCoreWebsite() {
             <Logo contentWidth={150} />
           </button>
 
-          <nav className="hidden md:flex items-center gap-7 text-sm">
+          <nav className="hidden lg:flex items-center gap-5 xl:gap-7 text-sm">
             {NAV_LINKS.map(([label, id]) => (
               <button key={id} onClick={() => scrollTo(id)}
                 className={`relative py-1 transition-colors duration-200 group ${activeNav === id ? 'text-white' : 'text-[var(--text-muted)] hover:text-white'}`}>
@@ -936,7 +936,7 @@ export default function RadiusCoreWebsite() {
           </nav>
 
           <button onClick={() => setMenuOpen(!menuOpen)} aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-            className="md:hidden w-9 h-9 flex items-center justify-center rounded-lg text-[var(--text-muted)] hover:text-white hover:bg-navy-800 transition-colors">
+            className="lg:hidden w-10 h-10 flex items-center justify-center rounded-lg text-[var(--text-muted)] hover:text-white hover:bg-navy-800 transition-colors">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               {menuOpen
                 ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -946,7 +946,7 @@ export default function RadiusCoreWebsite() {
         </div>
 
         {/* Mobile drawer */}
-        <div className={`md:hidden overflow-hidden transition-all duration-300 ${menuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
+        <div className={`lg:hidden overflow-hidden transition-all duration-300 ${menuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
           <div className="bg-navy-900/98 backdrop-blur-xl border-b border-[var(--border)] px-4 pb-5 pt-2">
             <nav className="flex flex-col gap-1">
               {NAV_LINKS.map(([label, id]) => (
@@ -996,13 +996,13 @@ export default function RadiusCoreWebsite() {
               <span className="hidden xs:inline text-[var(--text-muted)]">QA Automation · 5G Validation</span>
             </div>
 
-            <h1 className="text-3xl xs:text-4xl sm:text-5xl lg:text-6xl xl:text-[4.5rem] font-bold leading-[1.08] tracking-tight mb-4 sm:mb-6">
+            <h1 className="fluid-hero font-bold tracking-tight mb-4 sm:mb-6">
               Engineering the{' '}
               <span className="text-gradient-animate">Future</span>{' '}
               of Telecom<br className="hidden sm:block" /> Validation
             </h1>
 
-            <p className="text-[var(--text-muted)] text-sm sm:text-base lg:text-lg leading-relaxed mb-7 sm:mb-10 max-w-lg">
+            <p className="fluid-lead text-[var(--text-muted)] leading-relaxed mb-7 sm:mb-10 max-w-lg">
               Radius Core Labs is a specialized telecom engineering company helping operators,
               MVNOs, vendors, and enterprises deliver reliable 4G, 5G, IMS, and cloud-native
               networks through expert validation, automation, and quality engineering.
@@ -1031,13 +1031,13 @@ export default function RadiusCoreWebsite() {
           </div>
 
           {/* Right — hero network image */}
-          <div className="self-stretch flex items-stretch select-none py-6 lg:py-0">
+          <div className="self-stretch flex items-center lg:items-stretch select-none py-6 lg:py-0">
             <div className="relative w-full">
               <img
                 src="/hero-network.jpg"
                 alt="Global telecom network"
-                className="object-cover object-center"
-                style={{ width: '100%', height: '90%', maskImage: 'radial-gradient(ellipse 95% 90% at 55% 50%, black 50%, transparent 100%)', WebkitMaskImage: 'radial-gradient(ellipse 95% 90% at 55% 50%, black 50%, transparent 100%)' }}
+                className="w-full h-auto lg:h-[90%] object-cover object-center"
+                style={{ maskImage: 'radial-gradient(ellipse 95% 90% at 55% 50%, black 50%, transparent 100%)', WebkitMaskImage: 'radial-gradient(ellipse 95% 90% at 55% 50%, black 50%, transparent 100%)' }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-navy-950/60 via-transparent to-transparent pointer-events-none" />
             </div>
@@ -1138,6 +1138,7 @@ export default function RadiusCoreWebsite() {
         </div>
       </section>
 
+
       {/* ══════════════════════════ INDUSTRIES ══════════════════════════ */}
       <section id="industries" className="py-14 sm:py-20 lg:py-28 px-4 sm:px-6 lg:px-10 relative overflow-hidden">
         <div className="absolute inset-0 bg-navy-900/40 pointer-events-none" />
@@ -1155,6 +1156,7 @@ export default function RadiusCoreWebsite() {
           </div>
         </div>
       </section>
+
 
       {/* ══════════════════════════ TECHNOLOGIES ══════════════════════════ */}
       <section id="technologies" className="py-14 sm:py-20 lg:py-28 px-4 sm:px-6 lg:px-10">
@@ -1197,6 +1199,7 @@ export default function RadiusCoreWebsite() {
         </div>
       </section>
 
+
       {/* ══════════════════════════ RC LABS ══════════════════════════ */}
       <section id="rclabs" className="py-14 sm:py-20 lg:py-28 px-4 sm:px-6 lg:px-10 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-navy-950 via-navy-900/60 to-navy-950 pointer-events-none" />
@@ -1205,6 +1208,7 @@ export default function RadiusCoreWebsite() {
           <RCLabsBanner scrollTo={scrollTo} />
         </div>
       </section>
+
 
       {/* ══════════════════════════ ABOUT ══════════════════════════ */}
       <section id="about" className="py-14 sm:py-20 lg:py-28 px-4 sm:px-6 lg:px-10">
@@ -1244,6 +1248,7 @@ export default function RadiusCoreWebsite() {
           <AboutBanner scrollTo={scrollTo} />
         </div>
       </section>
+
 
       {/* ══════════════════════════ CONTACT ══════════════════════════ */}
       <section id="contact" className="py-14 sm:py-20 lg:py-28 px-4 sm:px-6 lg:px-10 relative overflow-hidden">
@@ -1364,7 +1369,7 @@ function AboutBanner({ scrollTo }) {
       <div className="relative z-10 px-5 sm:px-10 lg:px-16 py-8 sm:py-12 flex flex-col sm:flex-row items-center justify-between gap-6 sm:gap-8">
         <div className="text-center sm:text-left max-w-xl">
           <p className="text-brand text-xs font-semibold uppercase tracking-[0.2em] mb-3">Trusted Partner</p>
-          <h3 className="text-lg xs:text-xl sm:text-2xl lg:text-3xl font-bold text-white mb-2">
+          <h3 className="fluid-h3 font-bold text-white mb-2">
             Serving operators across <span className="text-gradient">4 continents</span>
           </h3>
           <p className="text-[var(--text-muted)] text-sm leading-relaxed">
@@ -1401,7 +1406,7 @@ function ContactSection({ scrollTo }) {
         <div className="relative z-10 px-5 sm:px-10 lg:px-16 py-10 sm:py-16 lg:py-20">
           <div className="text-center mb-8 sm:mb-12">
             <Tag>Get In Touch</Tag>
-            <h2 className="text-2xl xs:text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-5">
+            <h2 className="fluid-h2 font-bold mb-4 sm:mb-5">
               Ready to Transform<br />
               <span className="text-gradient">Your Testing?</span>
             </h2>
@@ -1499,7 +1504,7 @@ function RCLabsBanner({ scrollTo }) {
             <span className="w-px h-3 bg-[var(--border)]" />
             <span className="text-[var(--text-muted)]">Coming Soon</span>
           </div>
-          <h3 className="text-xl xs:text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-3 sm:mb-4 leading-tight">
+          <h3 className="fluid-h3 font-bold text-white mb-3 sm:mb-4">
             Future Products — <span className="text-gradient">RC Labs</span>
           </h3>
           <p className="text-[var(--text-muted)] text-sm sm:text-base lg:text-lg leading-relaxed max-w-2xl mx-auto">
