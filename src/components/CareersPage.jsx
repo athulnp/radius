@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useReveal, Logo, Tag, ArrowRight, PrimaryBtn, SectionLabel, SiteHeader } from './siteShared.jsx';
+import { useReveal, Tag, ArrowRight, PrimaryBtn, SectionLabel, SiteHeader, SiteFooter } from './siteShared.jsx';
 
 /* ─────────────────────────────────────────────
    Data
@@ -190,12 +190,7 @@ export default function CareersPage() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-[var(--border)] bg-navy-900/50 backdrop-blur-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-10 flex flex-col sm:flex-row items-center justify-between gap-5">
-          <Link to="/"><Logo contentHeight={48} /></Link>
-          <p className="text-[var(--text-subtle)] text-xs">© 2026 Radius Core Labs. All rights reserved.</p>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }
