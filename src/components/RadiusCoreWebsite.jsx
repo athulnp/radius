@@ -1,62 +1,11 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import AutoSlider from './AutoSlider.jsx';
-
-/* ─────────────────────────────────────────────
-   Hook: fire once when element enters viewport
-───────────────────────────────────────────── */
-function useReveal(threshold = 0.1) {
-  const ref = useRef(null);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) { el.classList.add('is-visible'); obs.unobserve(el); }
-      },
-      { threshold },
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, [threshold]);
-  return ref;
-}
-
-/* ─────────────────────────────────────────────
-   Logo — crops built-in PNG white margins
-   Image measurements:
-     top/bottom ≈ 16%, left ≈ 7.2%, aspect ≈ 1.784
-     content: 68% tall, 85.5% wide
-   Adds 6 px breathing room L+R for navbar/footer
-───────────────────────────────────────────── */
-function Logo({ contentHeight = 36, contentWidth }) {
-  // If contentWidth is given, size by width; otherwise size by height.
-  const imgW = contentWidth != null
-    ? Math.round(contentWidth / 0.855)
-    : Math.round((contentHeight / 0.68) * 1.784);
-  const imgH = Math.round(imgW / 1.784);
-  const mt   = -Math.round(imgH * 0.16);
-  const ml   = -Math.round(imgW * 0.072) + 6;
-  const w    = Math.round(imgW * 0.975) + 12;
-  const h    = Math.round(imgH * 0.60);
-  return (
-    <div className="overflow-hidden rounded-md bg-white flex-shrink-0" style={{ width: w, height: h }}>
-      <img src="/logo.png" alt="Radius Core"
-        style={{ height: imgH, width: 'auto', maxWidth: 'none', marginTop: mt, marginLeft: ml, display: 'block' }} />
-    </div>
-  );
-}
+import { useReveal, Logo, Tag, ArrowRight, PrimaryBtn, SectionLabel, NAV_LINKS } from './siteShared.jsx';
 
 /* ─────────────────────────────────────────────
    Data
 ───────────────────────────────────────────── */
-const NAV_LINKS = [
-  ['Services',    'services'],
-  ['Industries',  'industries'],
-  ['Technologies','technologies'],
-  ['About',       'about'],
-  ['Careers',     'careers'],
-  ['Contact',     'contact'],
-];
 
 const SERVICES = [
   {
@@ -524,24 +473,6 @@ const SLIDE_DATA = [
 /* ─────────────────────────────────────────────
    Reusable primitives
 ───────────────────────────────────────────── */
-function Tag({ children }) {
-  return (
-    <div className="inline-flex items-center gap-2 mb-4">
-      <span className="w-4 h-px bg-brand" />
-      <p className="text-brand text-xs font-semibold uppercase tracking-[0.2em]">{children}</p>
-    </div>
-  );
-}
-
-function PrimaryBtn({ onClick, children, href, size = 'md' }) {
-  const sz = size === 'lg'
-    ? 'px-8 py-4 text-sm rounded-xl gap-2.5'
-    : 'px-6 py-3 text-sm rounded-xl gap-2';
-  const cls = `glass-hover inline-flex items-center ${sz} bg-brand hover:bg-brand-hover active:scale-95 text-white font-semibold transition-all duration-200 leading-none select-none`;
-  if (href) return <a href={href} className={cls}>{children}</a>;
-  return <button onClick={onClick} className={cls}>{children}</button>;
-}
-
 function GhostBtn({ onClick, children, size = 'md' }) {
   const sz = size === 'lg'
     ? 'px-8 py-4 text-sm rounded-xl gap-2.5'
@@ -551,26 +482,6 @@ function GhostBtn({ onClick, children, size = 'md' }) {
       className={`inline-flex items-center ${sz} bg-navy-800/80 border border-[var(--border-light)] hover:border-brand/40 hover:text-brand active:scale-95 text-slate-300 font-semibold transition-all duration-200 leading-none select-none`}>
       {children}
     </button>
-  );
-}
-
-function ArrowRight({ className = 'w-4 h-4' }) {
-  return (
-    <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-    </svg>
-  );
-}
-
-function SectionLabel({ tag, title, desc, align = 'center' }) {
-  const ref = useReveal();
-  const alignCls = align === 'left' ? 'text-left' : 'text-center mx-auto';
-  return (
-    <div ref={ref} className={`reveal mb-8 sm:mb-12 lg:mb-16 max-w-2xl ${alignCls}`}>
-      <Tag>{tag}</Tag>
-      <h2 className="fluid-h2 font-bold mb-3 sm:mb-5">{title}</h2>
-      {desc && <p className="fluid-lead text-[var(--text-muted)] leading-relaxed">{desc}</p>}
-    </div>
   );
 }
 
@@ -828,7 +739,8 @@ function ServiceCard({ service, index, delay = 0 }) {
   );
 }
 
-function CareerCard({ card, scrollTo }) {
+
+function CareerCard({ card }) {
   const ref = useReveal(0.08);
   return (
     <article ref={ref}
@@ -839,11 +751,11 @@ function CareerCard({ card, scrollTo }) {
           <p key={i} className="text-[var(--text-muted)] text-sm leading-relaxed">{p}</p>
         ))}
       </div>
-      <button onClick={() => scrollTo('contact')}
+      <Link to="/careers"
         className="inline-flex items-center gap-2 self-start px-5 py-2.5 rounded-full border border-[var(--border-light)] text-slate-300 text-xs font-semibold uppercase tracking-wide hover:border-brand/50 hover:text-brand transition-all duration-200">
         {card.cta}
         <ArrowRight />
-      </button>
+      </Link>
     </article>
   );
 }
@@ -871,12 +783,13 @@ export default function RadiusCoreWebsite() {
   const [scrolled, setScrolled] = useState(false);
   const [slide, setSlide] = useState(0);
   const [activeNav, setActiveNav] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 40);
       // Highlight active section in nav
-      const sections = ['services', 'industries', 'technologies', 'expertise', 'rclabs', 'about', 'careers', 'contact'];
+      const sections = ['services', 'industries', 'technologies', 'expertise', 'rclabs', 'about', 'contact'];
       for (const id of sections.reverse()) {
         const el = document.getElementById(id);
         if (el && window.scrollY >= el.offsetTop - 120) { setActiveNav(id); return; }
@@ -888,9 +801,11 @@ export default function RadiusCoreWebsite() {
   }, []);
 
   const scrollTo = useCallback((id) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
     setMenuOpen(false);
-  }, []);
+    // Careers has its own dedicated page — launch it instead of scrolling
+    if (id === 'careers') { navigate('/careers'); return; }
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  }, [navigate]);
 
   // Shared slide shell — left text copy + right visual panel
   function SlideShell({ s, visual }) {
@@ -1361,7 +1276,6 @@ export default function RadiusCoreWebsite() {
         </div>
       </section>
 
-
       {/* ══════════════════════════ CAREERS ══════════════════════════ */}
       <section id="careers" className="py-14 sm:py-20 lg:py-28 px-4 sm:px-6 lg:px-10 relative overflow-hidden">
         <div className="absolute inset-0 bg-navy-900/30 pointer-events-none" />
@@ -1405,7 +1319,7 @@ export default function RadiusCoreWebsite() {
                 cta: 'Explore about Experienced Professionals',
               },
             ].map((card) => (
-              <CareerCard key={card.title} card={card} scrollTo={scrollTo} />
+              <CareerCard key={card.title} card={card} />
             ))}
           </div>
         </div>
