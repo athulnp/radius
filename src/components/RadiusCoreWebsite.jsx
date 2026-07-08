@@ -54,6 +54,7 @@ const NAV_LINKS = [
   ['Industries',  'industries'],
   ['Technologies','technologies'],
   ['About',       'about'],
+  ['Careers',     'careers'],
   ['Contact',     'contact'],
 ];
 
@@ -157,6 +158,66 @@ const SERVICES = [
     desc: 'Cloud-native telecom validation on Kubernetes, AWS, Azure and OpenShift.',
     tags: ['Docker', 'Kubernetes', 'OpenShift', 'AWS', 'Azure', 'Helm'],
     accent: 'from-sky-500/20 to-sky-600/5',
+  },
+];
+
+const TESTING_SERVICES = [
+  {
+    icon: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
+      </svg>
+    ),
+    title: '5G Core Testing',
+    desc: 'End-to-end 5G SA/NSA core testing, slice validation and performance assurance.',
+  },
+  {
+    icon: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+      </svg>
+    ),
+    title: 'IMS & VoLTE Testing',
+    desc: 'Comprehensive IMS testing including VoLTE, VILTE, VoWiFi and RCS.',
+  },
+  {
+    icon: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3.6 9h16.8M3.6 15h16.8M12 3a15 15 0 010 18M12 3a15 15 0 000 18" />
+      </svg>
+    ),
+    title: 'Roaming Testing',
+    desc: 'International roaming validation, interop testing and partner assurance.',
+  },
+  {
+    icon: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l2 2" />
+      </svg>
+    ),
+    title: 'Network Performance',
+    desc: 'Load testing, stress testing and KPI validation for optimal performance.',
+  },
+  {
+    icon: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+      </svg>
+    ),
+    title: 'Automation Testing',
+    desc: 'Test automation framework development and test process optimization.',
+  },
+  {
+    icon: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+      </svg>
+    ),
+    title: 'Compliance & Audit',
+    desc: 'Regulatory compliance testing and network audit for quality assurance.',
   },
 ];
 
@@ -767,6 +828,41 @@ function ServiceCard({ service, index, delay = 0 }) {
   );
 }
 
+function CareerCard({ card, scrollTo }) {
+  const ref = useReveal(0.08);
+  return (
+    <article ref={ref}
+      className="reveal card-hover group bg-navy-900 border border-[var(--border)] rounded-2xl p-7 flex flex-col">
+      <h3 className="text-white font-semibold text-lg mb-3">{card.title}</h3>
+      <div className="flex-1 mb-6 space-y-3">
+        {card.desc.map((p, i) => (
+          <p key={i} className="text-[var(--text-muted)] text-sm leading-relaxed">{p}</p>
+        ))}
+      </div>
+      <button onClick={() => scrollTo('contact')}
+        className="inline-flex items-center gap-2 self-start px-5 py-2.5 rounded-full border border-[var(--border-light)] text-slate-300 text-xs font-semibold uppercase tracking-wide hover:border-brand/50 hover:text-brand transition-all duration-200">
+        {card.cta}
+        <ArrowRight />
+      </button>
+    </article>
+  );
+}
+
+function TestingServiceCard({ item, index }) {
+  const ref = useReveal(0.08);
+  return (
+    <article ref={ref}
+      className="reveal card-hover group bg-navy-900 border border-[var(--border)] rounded-2xl p-5 flex flex-col items-center text-center"
+      style={{ transitionDelay: `${index * 50}ms` }}>
+      <div className="w-12 h-12 rounded-full bg-brand/10 border border-brand/20 flex items-center justify-center text-brand mb-4 group-hover:bg-brand/15 group-hover:border-brand/40 transition-all duration-200">
+        {item.icon}
+      </div>
+      <h3 className="text-white font-semibold text-sm mb-2">{item.title}</h3>
+      <p className="text-[var(--text-muted)] text-xs leading-relaxed">{item.desc}</p>
+    </article>
+  );
+}
+
 /* ─────────────────────────────────────────────
    Main component
 ───────────────────────────────────────────── */
@@ -780,7 +876,7 @@ export default function RadiusCoreWebsite() {
     const onScroll = () => {
       setScrolled(window.scrollY > 40);
       // Highlight active section in nav
-      const sections = ['services', 'industries', 'technologies', 'expertise', 'rclabs', 'about', 'contact'];
+      const sections = ['services', 'industries', 'technologies', 'expertise', 'rclabs', 'about', 'careers', 'contact'];
       for (const id of sections.reverse()) {
         const el = document.getElementById(id);
         if (el && window.scrollY >= el.offsetTop - 120) { setActiveNav(id); return; }
@@ -917,7 +1013,7 @@ export default function RadiusCoreWebsite() {
 
       {/* ══════════════════════════ NAV ══════════════════════════ */}
       <header className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-        scrolled ? 'bg-navy-900/95 backdrop-blur-xl border-b border-[var(--border)] shadow-card' : 'bg-transparent'
+        scrolled ? 'bg-white border-b border-slate-200 shadow-card' : 'bg-transparent'
       }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 h-16 flex items-center justify-between gap-4">
           <button onClick={() => scrollTo('hero')} aria-label="Home" className="flex-shrink-0 pr-6 h-full flex items-center">
@@ -927,7 +1023,11 @@ export default function RadiusCoreWebsite() {
           <nav className="hidden lg:flex items-center gap-5 xl:gap-7 text-sm">
             {NAV_LINKS.map(([label, id]) => (
               <button key={id} onClick={() => scrollTo(id)}
-                className={`relative py-1 transition-colors duration-200 group ${activeNav === id ? 'text-white' : 'text-[var(--text-muted)] hover:text-white'}`}>
+                className={`relative py-1 transition-colors duration-200 group ${
+                  scrolled
+                    ? (activeNav === id ? 'text-navy-950' : 'text-slate-600 hover:text-navy-950')
+                    : (activeNav === id ? 'text-white' : 'text-[var(--text-muted)] hover:text-white')
+                }`}>
                 {label}
                 <span className={`absolute bottom-0 inset-x-0 h-px bg-brand transition-transform duration-250 origin-left ${activeNav === id ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`} />
               </button>
@@ -936,7 +1036,11 @@ export default function RadiusCoreWebsite() {
           </nav>
 
           <button onClick={() => setMenuOpen(!menuOpen)} aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-            className="lg:hidden w-10 h-10 flex items-center justify-center rounded-lg text-[var(--text-muted)] hover:text-white hover:bg-navy-800 transition-colors">
+            className={`lg:hidden w-10 h-10 flex items-center justify-center rounded-lg transition-colors ${
+              scrolled
+                ? 'text-slate-600 hover:text-navy-950 hover:bg-slate-100'
+                : 'text-[var(--text-muted)] hover:text-white hover:bg-navy-800'
+            }`}>
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               {menuOpen
                 ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -1073,6 +1177,14 @@ export default function RadiusCoreWebsite() {
             title={<>End-to-End <span className="text-gradient">Telecom</span> Testing</>}
             desc="From 5G Core validation to roaming compliance, IMS testing to test automation — comprehensive coverage across every layer of your network."
           />
+
+          {/* Comprehensive Telecom Testing Services strip */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4 mb-12 sm:mb-16">
+            {TESTING_SERVICES.map((item, i) => (
+              <TestingServiceCard key={item.title} item={item} index={i} />
+            ))}
+          </div>
+
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-6">
             {SERVICES.map((svc, i) => (
               <ServiceCard key={svc.title} service={svc} index={i} delay={i * 50} />
@@ -1250,6 +1362,56 @@ export default function RadiusCoreWebsite() {
       </section>
 
 
+      {/* ══════════════════════════ CAREERS ══════════════════════════ */}
+      <section id="careers" className="py-14 sm:py-20 lg:py-28 px-4 sm:px-6 lg:px-10 relative overflow-hidden">
+        <div className="absolute inset-0 bg-navy-900/30 pointer-events-none" />
+        <div className="absolute top-0 right-0 w-80 h-80 bg-brand/4 rounded-full blur-[120px] pointer-events-none" />
+        <div className="max-w-7xl mx-auto relative">
+          <SectionLabel
+            tag="Careers"
+            title={<>Engineer The Future. <span className="text-gradient">Pioneer your career path</span></>}
+          />
+
+          <div className="grid lg:grid-cols-3 gap-6 lg:gap-8 items-start">
+            {/* Intro copy */}
+            <div className="lg:pt-2">
+              <p className="text-[var(--text-muted)] text-sm sm:text-base leading-relaxed mb-5">
+                Join a global team helping the world's leading operators make their networks work with greater confidence, intelligence, and impact.
+              </p>
+              <p className="text-[var(--text-muted)] text-sm sm:text-base leading-relaxed mb-5">
+                At Radius Core Labs, you'll work alongside passionate telecom engineers, and innovators building the next generation of communication networks.
+              </p>
+              <p className="text-[var(--text-muted)] text-sm sm:text-base leading-relaxed">
+                From 5G Core and IMS to AI-driven automation and cloud-native technologies, you'll help solve real-world challenges that connect millions of people around the world.
+              </p>
+            </div>
+
+            {/* Two career cards */}
+            {[
+              {
+                title: 'Students and Graduates',
+                desc: [
+                  'Launch your engineering career by working on cutting-edge telecom technologies including 4G, 5G, IMS, Packet Core, Cloud, and AI.',
+                  'Learn from experienced engineers through structured mentoring, hands-on projects, and our Innovation Lab.',
+                ],
+                cta: 'Explore about Students and Graduates',
+              },
+              {
+                title: 'Experienced Professionals',
+                desc: [
+                  'Bring your expertise to a fast-growing engineering company delivering telecom solutions for operators, MVNOs, equipment vendors, and enterprises worldwide.',
+                  'Lead innovation, mentor future engineers, and help shape next-generation communication technologies.',
+                ],
+                cta: 'Explore about Experienced Professionals',
+              },
+            ].map((card) => (
+              <CareerCard key={card.title} card={card} scrollTo={scrollTo} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+
       {/* ══════════════════════════ CONTACT ══════════════════════════ */}
       <section id="contact" className="py-14 sm:py-20 lg:py-28 px-4 sm:px-6 lg:px-10 relative overflow-hidden">
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-96 h-64 bg-brand/4 rounded-full blur-[100px] pointer-events-none" />
@@ -1264,15 +1426,9 @@ export default function RadiusCoreWebsite() {
             {/* Brand col */}
             <div className="sm:col-span-2 lg:col-span-1">
               <div className="mb-5">
-                <Logo contentHeight={38} />
+                <Logo contentHeight={64} />
               </div>
-              <p className="text-[var(--text-muted)] text-sm leading-relaxed max-w-xs mb-5">
-                Telecom-native testing, automation, and validation for modern operators and MVNOs worldwide.
-              </p>
-              <div className="flex items-center gap-1.5">
-                <div className="dot-live" />
-                <span className="text-emerald-400 text-xs font-medium">Systems operational</span>
-              </div>
+              <p className="text-[var(--text-subtle)] text-xs">© 2026 Radius Core Labs. All rights reserved.</p>
             </div>
 
             {/* Services col */}
@@ -1325,10 +1481,6 @@ export default function RadiusCoreWebsite() {
             </div>
           </div>
 
-          <div className="border-t border-[var(--border)] pt-7 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[var(--text-subtle)]">
-            <p>© 2026 Radius Core Labs. All rights reserved.</p>
-            <p className="text-brand/60 font-medium tracking-wide">Testing The Future</p>
-          </div>
         </div>
       </footer>
 
