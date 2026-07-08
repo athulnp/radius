@@ -161,12 +161,12 @@ const SERVICES = [
 ];
 
 const STATS = [
-  { value: '12+',   label: 'Years Experience' },
+  { value: 'Roaming',   label: 'Testing & validation' },
   { value: '4G',    label: 'LTE / EPC'        },
   { value: '5G',    label: 'Standalone Core'  },
   { value: 'IMS',   label: 'VoLTE'            },
   { value: 'Global',label: 'Delivery'         },
-  { value: 'Auto',  label: 'Automation First' },
+  { value: '5G',  label: 'Private networks' },
 ];
 
 const WHY_CARDS = [
@@ -1005,7 +1005,7 @@ export default function RadiusCoreWebsite() {
             <p className="fluid-lead text-[var(--text-muted)] leading-relaxed mb-7 sm:mb-10 max-w-lg">
               Radius Core Labs is a specialized telecom engineering company helping operators,
               MVNOs, vendors, and enterprises deliver reliable 4G, 5G, IMS, and cloud-native
-              networks through expert validation, automation, and quality engineering.
+              networks through managed testing services ,expert validation, automation, and quality engineering.
             </p>
 
             <div className="flex flex-wrap gap-3 mb-7 sm:mb-10">
@@ -1019,7 +1019,7 @@ export default function RadiusCoreWebsite() {
 
             {/* Trust row */}
             <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-[var(--text-muted)]">
-              {['ISO 27001 Aligned', '50+ Operators', 'Global Coverage'].map((t) => (
+              {['Qualiyty Engineering', 'MNO/MVNO Operators', 'Global Coverage'].map((t) => (
                 <span key={t} className="flex items-center gap-1.5">
                   <svg className="w-3.5 h-3.5 text-brand flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
