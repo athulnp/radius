@@ -123,7 +123,7 @@ export default function CareersPage() {
       </section>
 
       {/* Why Radius Core Labs */}
-      <section className="py-14 sm:py-20 lg:py-28 px-4 sm:px-6 lg:px-10 relative overflow-hidden">
+      <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-10 relative overflow-hidden">
         <div className="absolute inset-0 bg-navy-900/30 pointer-events-none" />
         <div className="max-w-7xl mx-auto relative">
           <SectionLabel
@@ -140,7 +140,7 @@ export default function CareersPage() {
       </section>
 
       {/* Innovation */}
-      <section className="py-14 sm:py-20 lg:py-28 px-4 sm:px-6 lg:px-10 relative overflow-hidden">
+      <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-10 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-navy-950 via-navy-900/50 to-navy-950 pointer-events-none" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-brand/4 rounded-full blur-[120px] pointer-events-none" />
         <div ref={innovationRef} className="reveal max-w-4xl mx-auto relative text-center">

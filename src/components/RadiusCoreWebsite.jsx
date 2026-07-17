@@ -614,7 +614,7 @@ function HeroVisual() {
 function WhoWeAreSection() {
   const ref = useReveal(0.08);
   return (
-    <section className="py-20 sm:py-24 px-4 sm:px-6 lg:px-10 relative overflow-hidden">
+    <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-10 relative overflow-hidden">
       <div className="absolute inset-0 bg-navy-900/30 pointer-events-none" />
       <div className="max-w-5xl mx-auto relative text-center">
         <div ref={ref} className="reveal">
@@ -941,7 +941,7 @@ export default function RadiusCoreWebsite() {
 
       {/* ══════════════════════════ NAV ══════════════════════════ */}
       <header className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-        scrolled ? 'bg-white border-b border-slate-200 shadow-card' : 'bg-transparent'
+        scrolled ? 'glass border-b border-[var(--border)] shadow-card' : 'bg-transparent'
       }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 h-16 flex items-center justify-between gap-4">
           <button onClick={() => scrollTo('hero')} aria-label="Home" className="flex-shrink-0 pr-6 h-full flex items-center">
@@ -952,9 +952,7 @@ export default function RadiusCoreWebsite() {
             {NAV_LINKS.map(([label, id]) => (
               <button key={id} onClick={() => scrollTo(id)}
                 className={`relative py-1 transition-colors duration-200 group ${
-                  scrolled
-                    ? (activeNav === id ? 'text-navy-950' : 'text-slate-600 hover:text-navy-950')
-                    : (activeNav === id ? 'text-white' : 'text-[var(--text-muted)] hover:text-white')
+                  activeNav === id ? 'text-white' : 'text-[var(--text-muted)] hover:text-white'
                 }`}>
                 {label}
                 <span className={`absolute bottom-0 inset-x-0 h-px bg-brand transition-transform duration-250 origin-left ${activeNav === id ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`} />
@@ -964,11 +962,7 @@ export default function RadiusCoreWebsite() {
           </nav>
 
           <button onClick={() => setMenuOpen(!menuOpen)} aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-            className={`lg:hidden w-10 h-10 flex items-center justify-center rounded-lg transition-colors ${
-              scrolled
-                ? 'text-slate-600 hover:text-navy-950 hover:bg-slate-100'
-                : 'text-[var(--text-muted)] hover:text-white hover:bg-navy-800'
-            }`}>
+            className="lg:hidden w-10 h-10 flex items-center justify-center rounded-lg transition-colors text-[var(--text-muted)] hover:text-white hover:bg-navy-800">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               {menuOpen
                 ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -1037,7 +1031,7 @@ export default function RadiusCoreWebsite() {
             <p className="fluid-lead text-[var(--text-muted)] leading-relaxed mb-7 sm:mb-10 max-w-lg">
               Radius Core Labs is a specialized telecom engineering company helping operators,
               MVNOs, vendors, and enterprises deliver reliable 4G, 5G, IMS, and cloud-native
-              networks through managed testing services ,expert validation, automation, and quality engineering.
+              networks through managed testing services, expert validation, automation, and quality engineering.
             </p>
 
             <div className="flex flex-wrap gap-3 mb-7 sm:mb-10">
@@ -1051,7 +1045,7 @@ export default function RadiusCoreWebsite() {
 
             {/* Trust row */}
             <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-[var(--text-muted)]">
-              {['Qualiyty Engineering', 'MNO/MVNO Operators', 'Global Coverage'].map((t) => (
+              {['Quality Engineering', 'MNO/MVNO Operators', 'Global Coverage'].map((t) => (
                 <span key={t} className="flex items-center gap-1.5">
                   <svg className="w-3.5 h-3.5 text-brand flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
@@ -1069,7 +1063,7 @@ export default function RadiusCoreWebsite() {
                 src="/hero-network.jpg"
                 alt="Global telecom network"
                 className="w-full h-auto lg:h-[90%] object-cover object-center"
-                style={{ maskImage: 'radial-gradient(ellipse 95% 90% at 55% 50%, black 50%, transparent 100%)', WebkitMaskImage: 'radial-gradient(ellipse 95% 90% at 55% 50%, black 50%, transparent 100%)' }}
+                style={{ maskImage: 'radial-gradient(ellipse 88% 82% at 55% 50%, black 40%, transparent 96%)', WebkitMaskImage: 'radial-gradient(ellipse 88% 82% at 55% 50%, black 40%, transparent 96%)' }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-navy-950/60 via-transparent to-transparent pointer-events-none" />
             </div>
@@ -1098,7 +1092,7 @@ export default function RadiusCoreWebsite() {
       <WhoWeAreSection />
 
       {/* ══════════════════════════ SERVICES ══════════════════════════ */}
-      <section id="services" className="py-14 sm:py-20 lg:py-28 px-4 sm:px-6 lg:px-10">
+      <section id="services" className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-10">
         <div className="max-w-7xl mx-auto">
           <SectionLabel
             tag="What We Do"
@@ -1127,7 +1121,7 @@ export default function RadiusCoreWebsite() {
       </section>
 
       {/* ══════════════════════════ WHY RADIUS CORE ══════════════════════════ */}
-      <section id="expertise" className="py-14 sm:py-20 lg:py-28 px-4 sm:px-6 lg:px-10 relative overflow-hidden">
+      <section id="expertise" className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-10 relative overflow-hidden">
         <div className="absolute inset-0 bg-navy-900/25 pointer-events-none" />
         <div className="absolute top-0 right-0 w-96 h-96 bg-brand/3 rounded-full blur-[120px] pointer-events-none" />
         <div className="max-w-7xl mx-auto relative">
@@ -1162,7 +1156,7 @@ export default function RadiusCoreWebsite() {
       </section>
 
       {/* ══════════════════════════ DELIVERY PROCESS ══════════════════════════ */}
-      <section id="process" className="py-14 sm:py-20 lg:py-28 px-4 sm:px-6 lg:px-10 relative overflow-hidden">
+      <section id="process" className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-10 relative overflow-hidden">
         <div className="absolute inset-0 bg-navy-900/50 pointer-events-none" />
         <div className="max-w-7xl mx-auto relative">
           <SectionLabel
@@ -1180,7 +1174,7 @@ export default function RadiusCoreWebsite() {
 
 
       {/* ══════════════════════════ INDUSTRIES ══════════════════════════ */}
-      <section id="industries" className="py-14 sm:py-20 lg:py-28 px-4 sm:px-6 lg:px-10 relative overflow-hidden">
+      <section id="industries" className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-10 relative overflow-hidden">
         <div className="absolute inset-0 bg-navy-900/40 pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-80 h-80 bg-sky-500/3 rounded-full blur-[100px] pointer-events-none" />
         <div className="max-w-7xl mx-auto relative">
@@ -1199,7 +1193,7 @@ export default function RadiusCoreWebsite() {
 
 
       {/* ══════════════════════════ TECHNOLOGIES ══════════════════════════ */}
-      <section id="technologies" className="py-14 sm:py-20 lg:py-28 px-4 sm:px-6 lg:px-10">
+      <section id="technologies" className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-10">
         <div className="max-w-7xl mx-auto">
           <SectionLabel
             tag="Technology Stack"
@@ -1241,7 +1235,7 @@ export default function RadiusCoreWebsite() {
 
 
       {/* ══════════════════════════ RC LABS ══════════════════════════ */}
-      <section id="rclabs" className="py-14 sm:py-20 lg:py-28 px-4 sm:px-6 lg:px-10 relative overflow-hidden">
+      <section id="rclabs" className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-10 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-navy-950 via-navy-900/60 to-navy-950 pointer-events-none" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-brand/4 rounded-full blur-[120px] pointer-events-none" />
         <div className="max-w-4xl mx-auto relative">
@@ -1251,7 +1245,7 @@ export default function RadiusCoreWebsite() {
 
 
       {/* ══════════════════════════ ABOUT ══════════════════════════ */}
-      <section id="about" className="py-14 sm:py-20 lg:py-28 px-4 sm:px-6 lg:px-10">
+      <section id="about" className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-10">
         <div className="max-w-7xl mx-auto">
           <SectionLabel
             tag="About Us"
@@ -1290,7 +1284,7 @@ export default function RadiusCoreWebsite() {
       </section>
 
       {/* ══════════════════════════ CAREERS ══════════════════════════ */}
-      <section id="careers" className="py-14 sm:py-20 lg:py-28 px-4 sm:px-6 lg:px-10 relative overflow-hidden">
+      <section id="careers" className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-10 relative overflow-hidden">
         <div className="absolute inset-0 bg-navy-900/30 pointer-events-none" />
         <div className="absolute top-0 right-0 w-80 h-80 bg-brand/4 rounded-full blur-[120px] pointer-events-none" />
         <div className="max-w-7xl mx-auto relative">
@@ -1340,7 +1334,7 @@ export default function RadiusCoreWebsite() {
 
 
       {/* ══════════════════════════ CONTACT ══════════════════════════ */}
-      <section id="contact" className="py-14 sm:py-20 lg:py-28 px-4 sm:px-6 lg:px-10 relative overflow-hidden">
+      <section id="contact" className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-10 relative overflow-hidden">
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-96 h-64 bg-brand/4 rounded-full blur-[100px] pointer-events-none" />
         <ContactSection scrollTo={scrollTo} />
       </section>

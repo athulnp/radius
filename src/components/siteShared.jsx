@@ -88,7 +88,7 @@ export function SectionLabel({ tag, title, desc, align = 'center' }) {
   const ref = useReveal();
   const alignCls = align === 'left' ? 'text-left' : 'text-center mx-auto';
   return (
-    <div ref={ref} className={`reveal mb-8 sm:mb-12 lg:mb-16 max-w-2xl ${alignCls}`}>
+    <div ref={ref} className={`reveal mb-8 sm:mb-10 lg:mb-12 max-w-2xl ${alignCls}`}>
       <Tag>{tag}</Tag>
       <h2 className="fluid-h2 font-bold mb-3 sm:mb-5">{title}</h2>
       {desc && <p className="fluid-lead text-[var(--text-muted)] leading-relaxed">{desc}</p>}
@@ -149,10 +149,14 @@ export function SiteHeader({ activeNav = '' }) {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  // When the mobile menu is open, force the bar into a solid dark panel so it
+  // reads as one piece with the (dark) drawer — regardless of scroll position.
+  const barCls = menuOpen
+    ? 'bg-navy-900 border-b border-[var(--border)]'
+    : (scrolled ? 'glass border-b border-[var(--border)] shadow-card' : 'bg-transparent');
+
   return (
-    <header className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-      scrolled ? 'bg-white border-b border-slate-200 shadow-card' : 'bg-transparent'
-    }`}>
+    <header className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${barCls}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 h-16 flex items-center justify-between gap-4">
         <button onClick={() => go('hero')} aria-label="Home" className="flex-shrink-0 pr-6 h-full flex items-center">
           <Logo contentWidth={150} />
@@ -162,9 +166,7 @@ export function SiteHeader({ activeNav = '' }) {
           {NAV_LINKS.map(([label, id]) => (
             <button key={id} onClick={() => go(id)}
               className={`relative py-1 transition-colors duration-200 group ${
-                scrolled
-                  ? (activeNav === id ? 'text-navy-950' : 'text-slate-600 hover:text-navy-950')
-                  : (activeNav === id ? 'text-white' : 'text-[var(--text-muted)] hover:text-white')
+                activeNav === id ? 'text-white' : 'text-[var(--text-muted)] hover:text-white'
               }`}>
               {label}
               <span className={`absolute bottom-0 inset-x-0 h-px bg-brand transition-transform duration-250 origin-left ${activeNav === id ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`} />
@@ -174,11 +176,7 @@ export function SiteHeader({ activeNav = '' }) {
         </nav>
 
         <button onClick={() => setMenuOpen(!menuOpen)} aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-          className={`lg:hidden w-10 h-10 flex items-center justify-center rounded-lg transition-colors ${
-            scrolled
-              ? 'text-slate-600 hover:text-navy-950 hover:bg-slate-100'
-              : 'text-[var(--text-muted)] hover:text-white hover:bg-navy-800'
-          }`}>
+          className="lg:hidden w-10 h-10 flex items-center justify-center rounded-lg transition-colors text-[var(--text-muted)] hover:text-white hover:bg-navy-800">
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             {menuOpen
               ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
