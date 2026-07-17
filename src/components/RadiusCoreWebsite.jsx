@@ -913,7 +913,7 @@ export default function RadiusCoreWebsite() {
       }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 h-16 flex items-center justify-between gap-4">
           <button onClick={() => scrollTo('hero')} aria-label="Home" className="flex-shrink-0 pr-6 h-full flex items-center">
-            <Logo contentWidth={150} />
+            <Logo contentWidth={150} variant={scrolled && !menuOpen ? 'light' : 'dark'} />
           </button>
 
           <nav className="hidden lg:flex items-center gap-5 xl:gap-7 text-sm">

@@ -37,7 +37,7 @@ export const NAV_LINKS = [
 /* ─────────────────────────────────────────────
    Logo — crops built-in PNG white margins
 ───────────────────────────────────────────── */
-export function Logo({ contentHeight = 36, contentWidth }) {
+export function Logo({ contentHeight = 36, contentWidth, variant = 'light' }) {
   // If contentWidth is given, size by width; otherwise size by height.
   const imgW = contentWidth != null
     ? Math.round(contentWidth / 0.855)
@@ -47,6 +47,21 @@ export function Logo({ contentHeight = 36, contentWidth }) {
   const ml   = -Math.round(imgW * 0.072) + 6;
   const w    = Math.round(imgW * 0.975) + 12;
   const h    = Math.round(imgH * 0.60);
+  if (variant === 'dark') {
+    // logodark.png — dark-navy background version (aspect ~2.016); crops its
+    // built-in margins and blends into dark surfaces, so no white chip.
+    const dW  = Math.round(w / 0.90);
+    const dH  = Math.round(dW / 2.016);
+    const dMt = -Math.round((dH - h) / 2);
+    const dMl = -Math.round(dW * 0.055);
+    return (
+      <div className="overflow-hidden rounded-md flex-shrink-0" style={{ width: w, height: h }}>
+        {/* mix-blend-screen drops the image's near-black background into any dark surface */}
+        <img src="/logodark.png" alt="Radius Core" className="mix-blend-screen"
+          style={{ width: dW, height: dH, maxWidth: 'none', marginTop: dMt, marginLeft: dMl, display: 'block' }} />
+      </div>
+    );
+  }
   return (
     <div className="overflow-hidden rounded-md bg-white flex-shrink-0" style={{ width: w, height: h }}>
       <img src="/logo.png" alt="Radius Core"
@@ -161,7 +176,7 @@ export function SiteHeader({ activeNav = '' }) {
     <header className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${barCls}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 h-16 flex items-center justify-between gap-4">
         <button onClick={() => go('hero')} aria-label="Home" className="flex-shrink-0 pr-6 h-full flex items-center">
-          <Logo contentWidth={150} />
+          <Logo contentWidth={150} variant={darkText ? 'light' : 'dark'} />
         </button>
 
         <nav className="hidden lg:flex items-center gap-5 xl:gap-7 text-sm">
@@ -228,7 +243,7 @@ export function SiteFooter() {
           {/* Brand col */}
           <div className="sm:col-span-2 lg:col-span-1">
             <div className="mb-5">
-              <Logo contentHeight={64} />
+              <Logo contentHeight={64} variant="dark" />
             </div>
             <p className="text-[var(--text-subtle)] text-xs">© 2026 Radius Core Labs. All rights reserved.</p>
           </div>
