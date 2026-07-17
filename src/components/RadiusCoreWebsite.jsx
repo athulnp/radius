@@ -434,7 +434,7 @@ const SLIDE_DATA = [
     cta: 'Explore Services',
     target: 'services',
     metrics: [
-      { v: '500+', l: 'Test Cases',    color: 'text-brand' },
+      { v: '3X',   l: 'Test Cases',    color: 'text-brand' },
       { v: '6',    l: 'Disciplines',   color: 'text-sky-400' },
       { v: '100%', l: 'Stack Coverage', color: 'text-emerald-400' },
     ],
