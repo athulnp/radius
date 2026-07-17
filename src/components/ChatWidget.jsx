@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { CONTACT, QUICK_QUESTIONS, matchIntent } from './chatKnowledge.js';
 
 /* ─────────────────────────────────────────────
    Radius Assistant — free, rule-based chat.
@@ -6,119 +7,8 @@ import { useEffect, useRef, useState } from 'react';
    knowledge base with keyword intent matching.
    Open it from anywhere via:
      window.dispatchEvent(new Event('open-chat'))
+   To add or edit answers, edit chatKnowledge.js.
 ───────────────────────────────────────────── */
-
-const CONTACT = {
-  email: 'hello@radiuscorelabs.com',
-  whatsapp:
-    'https://wa.me/919847099911?text=' +
-    encodeURIComponent("Hi Radius Core, I'd like to chat about telecom testing."),
-};
-
-/* Each intent: keywords matched against the visitor's message (case-insensitive),
-   and the reply. First intent whose keywords hit wins; ties go to more hits. */
-const INTENTS = [
-  {
-    keywords: ['hello', 'hi', 'hey', 'good morning', 'good afternoon', 'good evening'],
-    reply:
-      "Hello! 👋 I'm the Radius Core assistant. Ask me about our testing services, the industries and technologies we cover, careers, or how to get in touch.",
-  },
-  {
-    keywords: ['service', 'testing', 'test', 'offer', 'what do you do', 'validation', 'qa'],
-    reply:
-      'We provide end-to-end telecom testing: 5G Core (SA/NSA) validation, EPC testing, IMS & VoLTE, international roaming, network performance and load testing, test automation, compliance & audit, and consulting. Which area are you interested in?',
-  },
-  {
-    keywords: ['5g', 'core', 'sa', 'nsa', 'slice'],
-    reply:
-      'Our 5G Core practice covers end-to-end SA/NSA core testing, network-slice validation, and performance assurance — from lab validation through pre-production sign-off.',
-  },
-  {
-    keywords: ['ims', 'volte', 'vilte', 'vowifi', 'voice', 'sms', 'call'],
-    reply:
-      'We do comprehensive IMS and voice-service testing: VoLTE, ViLTE, VoWiFi, SMS, SIP, SRVCC, and emergency calling — interop and regression across vendors.',
-  },
-  {
-    keywords: ['roaming', 'interop', 'plmn', 'steering'],
-    reply:
-      'We validate international and inter-PLMN roaming: LTE/VoLTE/5G roaming, steering, interworking, and IR testing with partner assurance.',
-  },
-  {
-    keywords: ['automation', 'ci/cd', 'cicd', 'pipeline', 'robot', 'python'],
-    reply:
-      'We build CI/CD-native telecom test automation using Python, Robot Framework, Jenkins, GitLab, and REST APIs — reducing manual effort and speeding up releases.',
-  },
-  {
-    keywords: ['performance', 'load', 'stress', 'capacity', 'benchmark', 'latency', 'throughput'],
-    reply:
-      'Our performance practice covers load, stress, and capacity benchmarking at scale — latency, throughput, and KPI validation for optimal network performance.',
-  },
-  {
-    keywords: ['cloud', 'kubernetes', 'docker', 'aws', 'azure', 'openshift', 'helm'],
-    reply:
-      'We validate cloud-native telecom deployments on Kubernetes, Docker, OpenShift, AWS, and Azure — including Helm-based deployment testing.',
-  },
-  {
-    keywords: ['industr', 'operator', 'mvno', 'mno', 'enterprise', 'vendor', 'who do you work'],
-    reply:
-      'We work with mobile network operators, MVNOs & MVNEs, equipment vendors, enterprises, cloud providers, telecom startups, and automotive & IoT players — from greenfield MVNOs to tier-1 carriers across 4 continents.',
-  },
-  {
-    keywords: ['career', 'job', 'join', 'hiring', 'vacancy', 'intern', 'graduate', 'work with you', 'apply'],
-    reply:
-      'We hire both students/graduates and experienced professionals — engineering roles across 4G, 5G, IMS, Packet Core, Cloud, and AI. Visit our Careers page (in the top navigation) or email us at ' +
-      CONTACT.email +
-      ' with your CV.',
-  },
-  {
-    keywords: ['about', 'company', 'who are you', 'founded', 'mission', 'vision', 'team'],
-    reply:
-      'Radius Core Labs is a specialized telecom engineering company founded by telecom engineers, with 12+ years of experience and 50+ operators served. Our mission: make telecom testing rigorous, automated, and accessible — eliminating network failures before they reach production.',
-  },
-  {
-    keywords: ['price', 'pricing', 'cost', 'quote', 'rate', 'budget', 'how much'],
-    reply:
-      'Pricing depends on scope — network type, test coverage, and duration. Email us at ' +
-      CONTACT.email +
-      ' with a short description of your project and we\'ll get back with a tailored quote.',
-  },
-  {
-    keywords: ['contact', 'email', 'reach', 'talk', 'human', 'phone', 'whatsapp', 'sales'],
-    reply:
-      'You can reach the team at ' +
-      CONTACT.email +
-      ', or chat with a human on WhatsApp using the button below. We usually respond within one business day.',
-    showHandoff: true,
-  },
-  {
-    keywords: ['thank', 'thanks', 'great', 'awesome', 'bye', 'goodbye'],
-    reply: "You're welcome! If anything else comes up, I'm right here. 😊",
-  },
-];
-
-const FALLBACK = {
-  reply:
-    "I'm not sure about that one — I can help with our services, industries, technologies, careers, and contact details. For anything else, the team is happy to help directly:",
-  showHandoff: true,
-};
-
-function matchIntent(text) {
-  const q = text.toLowerCase();
-  let best = null;
-  let bestScore = 0;
-  for (const intent of INTENTS) {
-    const score = intent.keywords.reduce((n, k) => (q.includes(k) ? n + 1 : n), 0);
-    if (score > bestScore) { best = intent; bestScore = score; }
-  }
-  return best || FALLBACK;
-}
-
-const QUICK_QUESTIONS = [
-  'What services do you offer?',
-  'Which industries do you serve?',
-  'Are you hiring?',
-  'How do I contact the team?',
-];
 
 function Handoff() {
   return (
