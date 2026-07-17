@@ -880,51 +880,19 @@ export default function RadiusCoreWebsite() {
     </div>
   );
 
-  // ── Slide 2 visual: Automation pipeline ──
-  const Slide2Visual = () => {
-    const steps = [
-      { label: 'Code Push',     icon: '⬆', done: true },
-      { label: 'Build',         icon: '⚙', done: true },
-      { label: 'Protocol Tests',icon: '🔬', done: true },
-      { label: 'Regression',    icon: '↩', done: false, running: true },
-      { label: 'Deploy',        icon: '🚀', done: false },
-    ];
-    return (
-      <div className="relative w-full max-w-[420px] select-none">
-        {/* Pipeline header */}
-        <div className="glass border border-[var(--border)] rounded-2xl p-4 mb-3"
-          style={{ animation: 'fade-up-in 0.35s ease 0.1s both' }}>
-          <div className="flex items-center justify-between mb-3">
-            <span className="text-white text-xs font-semibold">CI/CD Pipeline</span>
-            <span className="text-amber-400 text-[10px] font-bold tracking-wider">RUNNING</span>
-          </div>
-          {/* Progress bar */}
-          <div className="h-1.5 bg-navy-800 rounded-full overflow-hidden">
-            <div className="h-full bg-gradient-to-r from-brand to-amber-400 rounded-full" style={{ width: '62%', animation: 'none' }} />
-          </div>
-          <div className="flex justify-between mt-1.5 text-[10px] text-[var(--text-muted)]">
-            <span>Step 4 of 5</span>
-            <span>62%</span>
-          </div>
-        </div>
-        {/* Steps */}
-        <div className="space-y-2">
-          {steps.map((step, i) => (
-            <div key={step.label}
-              className={`flex items-center gap-3 glass border rounded-xl px-4 py-2.5 transition-colors ${step.done ? 'border-emerald-400/25' : step.running ? 'border-amber-400/30' : 'border-[var(--border)]'}`}
-              style={{ animation: `fade-up-in 0.35s ease ${0.18 + i * 0.07}s both` }}>
-              <div className={`w-6 h-6 rounded-full flex items-center justify-center text-[11px] flex-shrink-0 ${step.done ? 'bg-emerald-400/20 text-emerald-400' : step.running ? 'bg-amber-400/20 text-amber-400' : 'bg-navy-800 text-[var(--text-subtle)]'}`}>
-                {step.done ? '✓' : step.running ? '●' : '○'}
-              </div>
-              <span className={`text-xs font-medium flex-1 ${step.done ? 'text-white' : step.running ? 'text-amber-300' : 'text-[var(--text-muted)]'}`}>{step.label}</span>
-              {step.done && <span className="text-emerald-400 text-[10px] font-mono">PASS</span>}
-              {step.running && <span className="text-amber-400 text-[10px] font-mono">62s</span>}
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  };
+  // ── Slide 2 visual: network image ──
+  const Slide2Visual = () => (
+    <div className="relative w-full max-w-[520px] select-none"
+      style={{ animation: 'fade-up-in 0.5s ease 0.1s both' }}>
+      <img
+        src="/hero-network1.jpg"
+        alt="Telecom network automation"
+        className="w-full aspect-[1408/768] rounded-2xl object-cover shadow-card-lg"
+        style={{ maskImage: 'radial-gradient(ellipse 95% 90% at 50% 50%, black 60%, transparent 100%)', WebkitMaskImage: 'radial-gradient(ellipse 95% 90% at 50% 50%, black 60%, transparent 100%)' }}
+      />
+      <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-navy-950/50 via-transparent to-transparent pointer-events-none" />
+    </div>
+  );
 
   const slides = [
     { label: SLIDE_DATA[0].label, content: <SlideShell s={SLIDE_DATA[0]} visual={<Slide1Visual />} /> },
@@ -1019,7 +987,11 @@ export default function RadiusCoreWebsite() {
               <div className="dot-live flex-shrink-0" />
               <span className="text-brand font-semibold">Telecom Engineering</span>
               <span className="hidden xs:inline w-px h-3 bg-[var(--border)]" />
-              <span className="hidden xs:inline text-[var(--text-muted)]">QA Automation · 5G Validation</span>
+              <span className="hidden xs:inline">
+                <span className="text-sky-400">Managed Test Services</span>
+                <span className="text-[var(--text-subtle)]"> · </span>
+                <span className="text-emerald-400">TAAS</span>
+              </span>
             </div>
 
             <h1 className="fluid-hero font-bold tracking-tight mb-4 sm:mb-6">
@@ -1060,7 +1032,7 @@ export default function RadiusCoreWebsite() {
           <div className="self-stretch flex items-center lg:items-stretch select-none py-6 lg:py-0">
             <div className="relative w-full">
               <img
-                src="/hero-network.jpg"
+                src="/hero-network.png"
                 alt="Global telecom network"
                 className="w-full h-auto lg:h-[90%] object-cover object-center"
                 style={{ maskImage: 'radial-gradient(ellipse 88% 82% at 55% 50%, black 40%, transparent 96%)', WebkitMaskImage: 'radial-gradient(ellipse 88% 82% at 55% 50%, black 40%, transparent 96%)' }}
@@ -1446,13 +1418,14 @@ function ContactSection({ scrollTo }) {
                   </svg>
                 ),
                 label: 'Live Chat',
-                value: 'Chat on WhatsApp',
-                href: 'https://wa.me/919847099911?text=' + encodeURIComponent("Hi Radius Core, I'd like to chat about telecom testing."),
-                external: true,
+                value: 'Chat with our assistant',
+                onClick: () => window.dispatchEvent(new Event('open-chat')),
               },
-            ].map((opt) => (
-              <a key={opt.label} href={opt.href}
-                {...(opt.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+            ].map((opt) => {
+              const Comp = opt.onClick ? 'button' : 'a';
+              return (
+              <Comp key={opt.label}
+                {...(opt.onClick ? { type: 'button', onClick: opt.onClick } : { href: opt.href })}
                 className="card-hover flex flex-col items-center text-center bg-navy-900/80 border border-[var(--border)] rounded-2xl p-5 gap-3 group">
                 <div className="w-11 h-11 rounded-xl bg-navy-800 border border-[var(--border-light)] flex items-center justify-center text-brand group-hover:border-brand/40 transition-colors duration-200">
                   {opt.icon}
@@ -1461,8 +1434,9 @@ function ContactSection({ scrollTo }) {
                   <p className="text-white text-sm font-semibold mb-0.5">{opt.label}</p>
                   <p className="text-[var(--text-muted)] text-xs">{opt.value}</p>
                 </div>
-              </a>
-            ))}
+              </Comp>
+            );
+            })}
           </div>
 
           <div className="flex flex-col xs:flex-row gap-3 justify-center">

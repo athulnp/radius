@@ -111,14 +111,25 @@ export default function CareersPage() {
       <section className="relative overflow-hidden pt-32 pb-14 sm:pb-20 px-4 sm:px-6 lg:px-10">
         <div className="absolute inset-0 bg-gradient-to-br from-brand/5 via-navy-950 to-navy-900 pointer-events-none" />
         <div className="absolute top-0 left-1/3 w-96 h-96 rounded-full bg-brand/5 blur-[120px] pointer-events-none" />
-        <div className="max-w-4xl mx-auto relative text-center">
-          <Tag>Careers at Radius Core Labs</Tag>
-          <h1 className="fluid-hero font-bold text-white mb-5">
-            Build a Career That <span className="text-gradient">Shapes Networks</span>
-          </h1>
-          <p className="fluid-lead text-[var(--text-muted)] leading-relaxed max-w-2xl mx-auto">
-            Discover what makes Radius Core Labs a place where engineers grow — from next-generation telecom projects to an innovation-first culture.
-          </p>
+        <div className="max-w-7xl mx-auto relative grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+          <div className="text-center lg:text-left">
+            <Tag>Careers at Radius Core Labs</Tag>
+            <h1 className="fluid-hero font-bold text-white mb-5">
+              Build a Career That <span className="text-gradient">Shapes Networks</span>
+            </h1>
+            <p className="fluid-lead text-[var(--text-muted)] leading-relaxed max-w-2xl mx-auto lg:mx-0">
+              Discover what makes Radius Core Labs a place where engineers grow — from next-generation telecom projects to an innovation-first culture.
+            </p>
+          </div>
+          <div className="relative select-none">
+            <div className="absolute -inset-4 bg-brand/5 rounded-3xl blur-2xl pointer-events-none" />
+            <img
+              src="/careers-team.jpg"
+              alt="Engineers collaborating at Radius Core Labs"
+              className="relative w-full h-auto rounded-3xl border border-[var(--border)] shadow-card-lg object-cover"
+              onError={(e) => { e.currentTarget.parentElement.style.display = 'none'; }}
+            />
+          </div>
         </div>
       </section>
 

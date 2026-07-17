@@ -2,6 +2,7 @@ import React, { useLayoutEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import RadiusCoreWebsite from './components/RadiusCoreWebsite.jsx';
 import CareersPage from './components/CareersPage.jsx';
+import ChatWidget from './components/ChatWidget.jsx';
 
 // Reset scroll to top on every route change.
 // The site sets `html { scroll-behavior: smooth }`, which would ANIMATE this
@@ -30,6 +31,7 @@ function App() {
         <Route path="/" element={<RadiusCoreWebsite />} />
         <Route path="/careers" element={<CareersPage />} />
       </Routes>
+      <ChatWidget />
     </BrowserRouter>
   );
 }
