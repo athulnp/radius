@@ -995,7 +995,7 @@ export default function RadiusCoreWebsite() {
               <div className="dot-live flex-shrink-0" />
               <span className="text-brand font-semibold">Telecom Engineering</span>
               <span className="hidden xs:inline w-px h-3 bg-[var(--border)]" />
-              <span className="hidden xs:inline">
+              <span className="whitespace-nowrap">
                 <span className="text-sky-400">Managed Test Services</span>
                 <span className="text-[var(--text-subtle)]"> · </span>
                 <span className="text-emerald-400">TAAS</span>
