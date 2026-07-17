@@ -909,7 +909,9 @@ export default function RadiusCoreWebsite() {
 
       {/* ══════════════════════════ NAV ══════════════════════════ */}
       <header className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-        scrolled ? 'bg-white border-b border-slate-200 shadow-card' : 'bg-transparent'
+        menuOpen
+          ? 'bg-navy-900 border-b border-[var(--border)]'
+          : (scrolled ? 'bg-white border-b border-slate-200 shadow-card' : 'bg-transparent')
       }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 h-16 flex items-center justify-between gap-4">
           <button onClick={() => scrollTo('hero')} aria-label="Home" className="flex-shrink-0 pr-6 h-full flex items-center">
@@ -920,7 +922,7 @@ export default function RadiusCoreWebsite() {
             {NAV_LINKS.map(([label, id]) => (
               <button key={id} onClick={() => scrollTo(id)}
                 className={`relative py-1 transition-colors duration-200 group ${
-                  scrolled
+                  scrolled && !menuOpen
                     ? (activeNav === id ? 'text-navy-950' : 'text-slate-600 hover:text-navy-950')
                     : (activeNav === id ? 'text-white' : 'text-[var(--text-muted)] hover:text-white')
                 }`}>
@@ -933,7 +935,7 @@ export default function RadiusCoreWebsite() {
 
           <button onClick={() => setMenuOpen(!menuOpen)} aria-label={menuOpen ? 'Close menu' : 'Open menu'}
             className={`lg:hidden w-10 h-10 flex items-center justify-center rounded-lg transition-colors ${
-              scrolled
+              scrolled && !menuOpen
                 ? 'text-slate-600 hover:text-navy-950 hover:bg-slate-100'
                 : 'text-[var(--text-muted)] hover:text-white hover:bg-navy-800'
             }`}>
@@ -947,7 +949,7 @@ export default function RadiusCoreWebsite() {
 
         {/* Mobile drawer */}
         <div className={`lg:hidden overflow-hidden transition-all duration-300 ${menuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
-          <div className="bg-navy-900/98 backdrop-blur-xl border-b border-[var(--border)] px-4 pb-5 pt-2">
+          <div className="bg-navy-900/95 backdrop-blur-xl border-b border-[var(--border)] px-4 pb-5 pt-2">
             <nav className="flex flex-col gap-1">
               {NAV_LINKS.map(([label, id]) => (
                 <button key={id} onClick={() => scrollTo(id)}

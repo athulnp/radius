@@ -210,7 +210,7 @@ export function SiteHeader({ activeNav = '' }) {
 
       {/* Mobile drawer */}
       <div className={`lg:hidden overflow-hidden transition-all duration-300 ${menuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
-        <div className="bg-navy-900/98 backdrop-blur-xl border-b border-[var(--border)] px-4 pb-5 pt-2">
+        <div className="bg-navy-900/95 backdrop-blur-xl border-b border-[var(--border)] px-4 pb-5 pt-2">
           <nav className="flex flex-col gap-1">
             {NAV_LINKS.map(([label, id]) => (
               <button key={id} onClick={() => go(id)}
