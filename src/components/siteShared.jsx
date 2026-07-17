@@ -50,10 +50,13 @@ export function Logo({ contentHeight = 36, contentWidth, variant = 'light' }) {
   if (variant === 'dark') {
     // logodark.png — dark-navy background version (aspect ~2.016); crops its
     // built-in margins and blends into dark surfaces, so no white chip.
-    const dW  = Math.round(w / 0.90);
-    const dH  = Math.round(dW / 2.016);
-    const dMt = -Math.round((dH - h) / 2);
-    const dMl = -Math.round(dW * 0.055);
+    // Measured content bounds of logodark.png: x 0.0767–0.9335, y 0.2345–0.7373.
+    // Scale so the visible artwork fills the chip box like the light version,
+    // and center it horizontally / align it vertically with the light logo.
+    const dW  = Math.round(w / 0.865);
+    const dH  = Math.round(dW / 2.0);
+    const dMl = -Math.round(dW * 0.0767 - (w - dW * 0.8568) / 2);
+    const dMt = -Math.round(dH * 0.2345 - imgH * 0.051);
     return (
       <div className="overflow-hidden rounded-md flex-shrink-0" style={{ width: w, height: h }}>
         {/* mix-blend-screen drops the image's near-black background into any dark surface */}
