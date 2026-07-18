@@ -132,16 +132,16 @@ export default function AutoSlider({ slides, currentSlide: controlled, onSlideCh
 
       {/* Tab strip */}
       <div className="bg-navy-900/95 border-t border-[var(--border)] backdrop-blur-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 flex items-stretch no-scrollbar overflow-x-auto">
+        <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-10 flex items-stretch no-scrollbar overflow-x-auto">
           {slides.map((slide, i) => (
             <button
               key={i}
               onClick={() => goTo(i)}
-              className={`relative flex-shrink-0 px-5 sm:px-7 py-4 text-left transition-colors duration-200 ${
+              className={`relative flex-1 sm:flex-none sm:flex-shrink-0 px-1 sm:px-7 py-4 text-center sm:text-left transition-colors duration-200 ${
                 logical === i ? 'text-white' : 'text-[var(--text-subtle)] hover:text-[var(--text-muted)]'
               }`}
             >
-              <span className="text-xs font-semibold uppercase tracking-widest">{slide.label}</span>
+              <span className="text-[10px] sm:text-xs font-semibold uppercase tracking-wide sm:tracking-widest whitespace-nowrap">{slide.label}</span>
               <span className={`absolute bottom-0 inset-x-0 h-[2px] ${logical === i ? 'bg-brand' : 'bg-transparent'}`}>
                 {logical === i && (
                   <span
