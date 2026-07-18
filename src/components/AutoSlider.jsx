@@ -95,9 +95,9 @@ export default function AutoSlider({ slides, currentSlide: controlled, onSlideCh
       onTouchEnd={onTouchEnd}
     >
       {/* Slide viewport */}
-      <div className="relative w-full h-[360px] sm:h-[55vh] sm:min-h-[420px] sm:max-h-[620px]">
+      <div className="relative w-full">
         <div
-          className="flex h-full"
+          className="flex items-stretch"
           style={{
             width: `${track.length * 100}%`,
             transform: `translateX(-${(pos / track.length) * 100}%)`,
@@ -105,7 +105,7 @@ export default function AutoSlider({ slides, currentSlide: controlled, onSlideCh
           }}
         >
           {track.map((slide, i) => (
-            <div key={i} style={{ width: `${100 / track.length}%` }} className="h-full flex-shrink-0">
+            <div key={i} style={{ width: `${100 / track.length}%` }} className="flex-shrink-0">
               {slide.content}
             </div>
           ))}

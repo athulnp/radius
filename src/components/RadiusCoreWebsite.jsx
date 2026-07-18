@@ -823,7 +823,7 @@ export default function RadiusCoreWebsite() {
   // Shared slide shell — left text copy + right visual panel
   function SlideShell({ s, visual }) {
     return (
-      <div className="w-full h-full relative flex items-center bg-navy-950 overflow-hidden">
+      <div className="w-full h-full min-h-[380px] sm:min-h-[440px] lg:min-h-[560px] relative flex items-center bg-navy-950 overflow-hidden">
         {/* Per-slide radial accent */}
         <div className="absolute inset-0 pointer-events-none"
           style={{ background: `radial-gradient(ellipse 55% 70% at 2% 50%, ${s.accentColor}, transparent)` }} />
@@ -835,12 +835,12 @@ export default function RadiusCoreWebsite() {
         {/* Brand accent bar */}
         <div className="absolute left-0 inset-y-10 w-[2px] rounded-full bg-gradient-to-b from-transparent via-brand to-transparent opacity-70" />
 
-        <div className="relative z-10 w-full h-full flex flex-col lg:flex-row items-center px-5 sm:px-10 lg:px-14 gap-6 lg:gap-10 py-8 sm:py-10">
+        <div className="relative z-10 w-full h-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center px-5 sm:px-6 lg:px-10 gap-6 lg:gap-10 py-8 sm:py-10">
           {/* Left — text */}
           <div className="flex flex-col justify-center w-full lg:w-[45%] lg:flex-shrink-0">
             <Tag>{s.tag}</Tag>
             <h2 className="text-2xl xs:text-3xl sm:text-4xl lg:text-[2.5rem] font-bold text-white mb-3 sm:mb-4 whitespace-pre-line leading-[1.12]">{s.title}</h2>
-            <p className="text-[var(--text-muted)] text-sm leading-relaxed mb-5 sm:mb-7 line-clamp-3 sm:line-clamp-none">{s.desc}</p>
+            <p className="text-[var(--text-muted)] text-sm leading-relaxed mb-5 sm:mb-7">{s.desc}</p>
             {/* Metrics row */}
             <div className="flex gap-4 sm:gap-6 mb-5 sm:mb-7">
               {s.metrics.map(m => (
